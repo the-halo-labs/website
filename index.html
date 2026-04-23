@@ -8,6 +8,153 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" />
 <link rel="stylesheet" href="styles.css" />
+<style>
+/* ========================================================================
+   HERO — split layout overrides (text left, orb right)
+   Scoped so it overrides the centered defaults in styles.css without
+   breaking mobile.
+   ======================================================================== */
+.hero{
+  padding: calc(var(--nav-h) + 40px) 48px 80px;
+}
+.hero-inner{
+  position: relative; z-index: 2;
+  max-width: 1280px; margin: 0 auto; width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: center;
+  min-height: calc(100vh - var(--nav-h) - 120px);
+}
+
+/* LEFT column — copy */
+.hero-copy{
+  text-align: left;
+  position: relative;
+  z-index: 3;
+  max-width: 620px;
+}
+.hero-copy .hero-eyebrow{ margin-bottom: 26px; }
+.hero-copy .hero-title{
+  font-size: clamp(44px, 6.2vw, 96px);
+  text-align: left;
+  margin: 0 0 22px;
+}
+.hero-copy .hero-sub{
+  text-align: left;
+  margin: 0 0 32px;
+  max-width: 520px;
+  font-size: clamp(15px, 1.1vw, 17px);
+}
+.hero-copy .hero-ctas{ justify-content: flex-start; }
+.hero-copy .hero-metrics{
+  margin-top: 56px;
+  grid-template-columns: repeat(4, auto);
+  justify-content: start;
+  gap: 0 48px;
+  max-width: none;
+}
+.hero-copy .metric{ align-items: flex-start; }
+
+/* Readability scrim behind text only — keeps copy crisp no matter what the orb is doing */
+.hero-copy::before{
+  content:"";
+  position: absolute;
+  inset: -40px -60px -40px -60px;
+  z-index: -1;
+  background: radial-gradient(ellipse 70% 75% at 30% 50%,
+    rgba(10,10,11,0.92) 0%,
+    rgba(10,10,11,0.75) 40%,
+    rgba(10,10,11,0) 80%);
+  pointer-events: none;
+}
+
+/* RIGHT column — orb stage */
+.hero-orb-col{
+  position: relative;
+  height: min(640px, 70vh);
+  min-height: 480px;
+}
+.hero-stage{
+  position: absolute;
+  inset: 0;
+  /* subtle containment ring — "instrument" feel */
+}
+.hero-stage::after{
+  content:"";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: min(520px, 85%);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.05);
+  pointer-events: none;
+  z-index: 2;
+}
+#orb{ position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hero-vignette{
+  background:
+    radial-gradient(600px 600px at 50% 50%, transparent 0%, rgba(10,10,11,.35) 70%, var(--bg) 100%);
+}
+.hero-grid{
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 65%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 65%);
+  opacity: .25;
+}
+
+/* HUD — docked under the orb, quieter */
+.hero-hud{
+  position: absolute;
+  right: auto; left: 50%; top: auto; bottom: 8px;
+  transform: translateX(-50%);
+  flex-direction: row;
+  gap: 18px;
+  padding: 10px 16px;
+  font-size: 10px;
+  background: rgba(10,10,11,.55);
+  border-radius: 99px;
+  z-index: 3;
+}
+.hero-hud .hud-row{ min-width: 0; gap: 8px; }
+.hero-hud .hud-row span:first-child{ color: var(--fg-ghost); }
+
+.scroll-cue{ bottom: 20px; }
+
+/* --- Mobile: fall back to stacked (keeps the version that already looks good) --- */
+@media (max-width: 900px){
+  .hero{ padding: calc(var(--nav-h) + 40px) 24px 60px; }
+  .hero-inner{
+    grid-template-columns: 1fr;
+    gap: 0;
+    min-height: auto;
+  }
+  .hero-copy{
+    text-align: center;
+    max-width: 100%;
+    order: 2;
+    padding-top: 20px;
+  }
+  .hero-copy .hero-title,
+  .hero-copy .hero-sub{ text-align: center; margin-left:auto; margin-right:auto; }
+  .hero-copy .hero-ctas{ justify-content: center; }
+  .hero-copy .hero-metrics{
+    justify-content: center;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px 0;
+    margin-top: 40px;
+  }
+  .hero-copy .metric{ align-items: center; }
+  .hero-copy::before{ display: none; }
+  .hero-orb-col{
+    order: 1;
+    height: 56vh;
+    min-height: 360px;
+  }
+  .hero-hud{ display: none; }
+}
+</style>
 </head>
 <body>
 
@@ -34,60 +181,66 @@
 
 <main id="top">
 
-<!-- ───────────────────────────── HERO (pinned orb) ───────────────────────────── -->
+<!-- ───────────────────────────── HERO (split: copy | orb) ───────────────────────────── -->
 <section class="hero" id="hero">
-  <div class="hero-stage">
-    <canvas id="orb" aria-hidden="true"></canvas>
-    <div class="hero-vignette" aria-hidden="true"></div>
-    <div class="hero-grid" aria-hidden="true"></div>
-  </div>
+  <div class="hero-inner">
 
-  <div class="hero-content">
-    <div class="hero-eyebrow">
-      <span class="pulse"></span>
-      <span class="mono">HALO&nbsp;CORE&nbsp;//&nbsp;<span id="hero-status">STANDBY</span></span>
-    </div>
-    <h1 class="hero-title" id="hero-headline">
-      <span class="line">Never miss</span>
-      <span class="line"><em>another</em> call.</span>
-    </h1>
-    <p class="hero-sub">
-      Halo Voice is a 24/7 AI receptionist for the businesses that keep the world running.
-      It answers, qualifies, and books — in any language, on the first ring.
-    </p>
-    <div class="hero-ctas">
-      <a href="#book" class="btn btn-primary btn-lg">Book a demo <span class="arr">→</span></a>
-      <button type="button" id="hear-btn" class="btn btn-ghost btn-lg">
-        <span class="play-dot"></span> <span id="hear-btn-label">Hear it live</span>
-      </button>
-    </div>
+    <!-- LEFT: copy -->
+    <div class="hero-copy">
+      <div class="hero-eyebrow">
+        <span class="pulse"></span>
+        <span class="mono">HALO&nbsp;CORE&nbsp;//&nbsp;<span id="hero-status">STANDBY</span></span>
+      </div>
+      <h1 class="hero-title" id="hero-headline">
+        <span class="line">Never miss</span>
+        <span class="line"><em>another</em> call.</span>
+      </h1>
+      <p class="hero-sub">
+        Halo Voice is a 24/7 AI receptionist for the businesses that keep the world running.
+        It answers, qualifies, and books — in any language, on the first ring.
+      </p>
+      <div class="hero-ctas">
+        <a href="#book" class="btn btn-primary btn-lg">Book a demo <span class="arr">→</span></a>
+        <button type="button" id="hear-btn" class="btn btn-ghost btn-lg">
+          <span class="play-dot"></span> <span id="hear-btn-label">Hear it live</span>
+        </button>
+      </div>
 
-    <div class="hero-metrics">
-      <div class="metric">
-        <span class="metric-num" data-count="98">0</span><span class="metric-unit">%</span>
-        <span class="metric-label">answer rate</span>
-      </div>
-      <div class="metric">
-        <span class="metric-num" data-count="0.8">0</span><span class="metric-unit">s</span>
-        <span class="metric-label">avg. pickup</span>
-      </div>
-      <div class="metric">
-        <span class="metric-num" data-count="24">0</span><span class="metric-unit">/7</span>
-        <span class="metric-label">always on</span>
-      </div>
-      <div class="metric">
-        <span class="metric-num" data-count="42">0</span><span class="metric-unit">+</span>
-        <span class="metric-label">languages</span>
+      <div class="hero-metrics">
+        <div class="metric">
+          <span class="metric-num" data-count="98">0</span><span class="metric-unit">%</span>
+          <span class="metric-label">answer rate</span>
+        </div>
+        <div class="metric">
+          <span class="metric-num" data-count="0.8">0</span><span class="metric-unit">s</span>
+          <span class="metric-label">avg. pickup</span>
+        </div>
+        <div class="metric">
+          <span class="metric-num" data-count="24">0</span><span class="metric-unit">/7</span>
+          <span class="metric-label">always on</span>
+        </div>
+        <div class="metric">
+          <span class="metric-num" data-count="42">0</span><span class="metric-unit">+</span>
+          <span class="metric-label">languages</span>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="hero-hud" aria-hidden="true">
-    <div class="hud-row"><span>LAT</span><span>38ms</span></div>
-    <div class="hud-row"><span>CH</span><span>01/64</span></div>
-    <div class="hud-row"><span>MODEL</span><span>halo-core</span></div>
-    <div class="hud-row"><span>NODE</span><span>ap-southeast-2</span></div>
-    <div class="hud-row"><span>STACK</span><span>livekit · webrtc</span></div>
+    <!-- RIGHT: orb -->
+    <div class="hero-orb-col">
+      <div class="hero-stage">
+        <canvas id="orb" aria-hidden="true"></canvas>
+        <div class="hero-vignette" aria-hidden="true"></div>
+        <div class="hero-grid" aria-hidden="true"></div>
+      </div>
+
+      <div class="hero-hud" aria-hidden="true">
+        <div class="hud-row"><span>LAT</span><span>38ms</span></div>
+        <div class="hud-row"><span>MODEL</span><span>halo-core</span></div>
+        <div class="hud-row"><span>NODE</span><span>ap-se-2</span></div>
+      </div>
+    </div>
+
   </div>
 
   <div class="scroll-cue" aria-hidden="true">
@@ -219,7 +372,6 @@
   </div>
 
   <div class="ind-grid">
-    <!-- 8 cards -->
     <article class="ind-card reveal"><div class="ind-gly">⬢</div><h3>Dental offices</h3><p>Appointment booking, insurance pre-check, reminders, emergency triage.</p><div class="ind-meta mono">Dentrix · Open Dental · Eaglesoft</div></article>
     <article class="ind-card reveal"><div class="ind-gly">▲</div><h3>HVAC</h3><p>Service intake, dispatch routing, quote recall, seasonal campaigns.</p><div class="ind-meta mono">ServiceTitan · Housecall Pro</div></article>
     <article class="ind-card reveal"><div class="ind-gly">╱</div><h3>Plumbing</h3><p>Emergency vs. scheduled triage, zip-code dispatch, upfront pricing.</p><div class="ind-meta mono">Jobber · ServiceTitan</div></article>
@@ -525,11 +677,7 @@
 <script>
 /* ===========================================================
    HERO — GEODESIC DOT-SPHERE with live voice reactivity
-   - Icosphere mesh (icosahedron subdivided) -> even triangulation.
-   - Idle: slow rotation, faint edges, dim vertices, soft bloom.
-   - Active: vertices displace outward on amp, edges brighten/pulse,
-     bloom swells, expanding voice rings.
-   - Painter's-algorithm depth sort on edges (back-to-front).
+   REFINED: smaller, slower, single-accent, contained.
    =========================================================== */
 (() => {
   const canvas = document.getElementById('orb');
@@ -538,24 +686,19 @@
   let W, H, DPR;
   const MAX_DPR = 1.75;
 
-  // ------- state -------
   const state = {
-    mode: 'idle',         // 'idle' | 'listening' | 'thinking' | 'speaking'
-    amp: 0,               // smoothed 0..1 mic energy (or synthetic when speaking)
+    mode: 'idle',
+    amp: 0,
     rawAmp: 0,
-    activation: 0,        // 0..1 how "woken" the sphere is
+    activation: 0,
     status: 'standby',
     startedAt: 0
   };
 
-  // =========================================================
-  // ICOSPHERE — icosahedron subdivided N times
-  // N=3 → 642 verts / 1280 faces / 1920 unique edges.
-  // =========================================================
+  // ---------- ICOSPHERE ----------
   const SUBDIV = 3;
 
   function buildIcosphere(subdiv){
-    // base icosahedron
     const t = (1 + Math.sqrt(5)) / 2;
     let verts = [
       [-1, t, 0],[ 1, t, 0],[-1,-t, 0],[ 1,-t, 0],
@@ -571,8 +714,6 @@
       [3,9,4],[3,4,2],[3,2,6],[3,6,8],[3,8,9],
       [4,9,5],[2,4,11],[6,2,10],[8,6,7],[9,8,1],
     ];
-
-    // subdivide: for each face, split each edge, normalize midpoints to the sphere
     const midCache = new Map();
     function midpoint(a, b){
       const key = a < b ? `${a}_${b}` : `${b}_${a}`;
@@ -593,8 +734,6 @@
       }
       faces = next;
     }
-
-    // unique edges
     const edgeSet = new Set();
     const edges = [];
     for (const [a,b,c] of faces){
@@ -613,15 +752,12 @@
   const V = ico.verts.length;
   const E = ico.edges.length;
 
-  // flat typed arrays — original + transformed
   const vx0 = new Float32Array(V), vy0 = new Float32Array(V), vz0 = new Float32Array(V);
   for (let i=0;i<V;i++){ vx0[i]=ico.verts[i][0]; vy0[i]=ico.verts[i][1]; vz0[i]=ico.verts[i][2]; }
 
-  // per-vertex random phase for organic noise
   const vPhase = new Float32Array(V);
   for (let i=0;i<V;i++) vPhase[i] = Math.random() * Math.PI * 2;
 
-  // edges as flat Int32 pairs + parallel phase
   const ea = new Int32Array(E), eb = new Int32Array(E);
   const ePhase = new Float32Array(E);
   for (let i=0;i<E;i++){
@@ -630,16 +766,13 @@
     ePhase[i] = Math.random() * Math.PI * 2;
   }
 
-  // transformed verts (recomputed each frame)
   const tx = new Float32Array(V), ty = new Float32Array(V), tz = new Float32Array(V);
-  const sx = new Float32Array(V), sy = new Float32Array(V), sp = new Float32Array(V); // screen + perspective
+  const sx = new Float32Array(V), sy = new Float32Array(V), sp = new Float32Array(V);
 
-  // edge z-sort indices (reused)
   const edgeOrder = new Int32Array(E);
   const edgeZ = new Float32Array(E);
   for (let i=0;i<E;i++) edgeOrder[i] = i;
 
-  // pointer parallax
   let mx=0, my=0, tmx=0, tmy=0;
   window.addEventListener('mousemove', e=>{
     tmx = (e.clientX / window.innerWidth - .5) * 2;
@@ -667,9 +800,7 @@
   let scrollY = 0;
   window.addEventListener('scroll', ()=>{ scrollY = window.scrollY; }, {passive:true});
 
-  // =========================================================
-  // AUDIO — real mic when permitted, synthetic when speaking
-  // =========================================================
+  // ---------- AUDIO ----------
   let audioCtx=null, analyser=null, micSrc=null, micStream=null, freq=null;
   let speakSynthT0 = 0;
 
@@ -719,9 +850,7 @@
     return 0;
   }
 
-  // =========================================================
-  // RENDER
-  // =========================================================
+  // ---------- RENDER ----------
   function render(now){
     const t = (now - t0) / 1000;
     mx += (tmx - mx) * 0.04;
@@ -735,7 +864,6 @@
     ctx.clearRect(0,0,W,H);
     if (fade <= 0.01){ requestAnimationFrame(render); return; }
 
-    // amp + activation smoothing
     const tgt = currentAmp();
     state.rawAmp = tgt;
     state.amp += (tgt - state.amp) * 0.22;
@@ -743,38 +871,35 @@
     state.activation += ((active ? 1 : 0) - state.activation) * 0.08;
 
     const cx = W/2;
-    const cy = H/2 + Math.min(H*0.03, 28);
-    const baseR = Math.min(W, H) * 0.3;
+    const cy = H/2;
+    // REFINED: smaller orb — was 0.3, now 0.34 of min(W,H). Container is already sized smaller.
+    const baseR = Math.min(W, H) * 0.34;
 
     const acc = accent();
     const aRgb = hexRgb(acc);
     const rgbStr = `${aRgb.r},${aRgb.g},${aRgb.b}`;
 
-    const rotY = t * 0.18 * animMult + mx * 0.2;
-    const rotX = Math.sin(t * 0.11 * animMult) * 0.1 + my * 0.1;
+    // REFINED: slower rotation (0.18 → 0.11) — more expensive-looking
+    const rotY = t * 0.11 * animMult + mx * 0.15;
+    const rotX = Math.sin(t * 0.07 * animMult) * 0.08 + my * 0.08;
     const cY = Math.cos(rotY), sY = Math.sin(rotY);
     const cX = Math.cos(rotX), sX = Math.sin(rotX);
 
-    const breath = 1 + Math.sin(t * 1.0 * animMult) * 0.02;
-    const ampPush = state.amp * 0.10 * state.activation;
+    const breath = 1 + Math.sin(t * 0.7 * animMult) * 0.015;
+    const ampPush = state.amp * 0.08 * state.activation;
     const R = baseR * (breath + ampPush);
 
-    // per-vertex displacement amount: organic, amp-scaled
-    const dispAmp = (0.02 + state.amp * 0.18 * state.activation);
-    const perspD = 600; // eye distance (arbitrary)
+    const dispAmp = (0.015 + state.amp * 0.15 * state.activation);
+    const perspD = 600;
 
-    // -------- transform all verts --------
     for (let i=0;i<V;i++){
-      // low-freq wobble per vertex (keeps idle alive even without voice)
-      const wob = Math.sin(t * 0.9 * animMult + vPhase[i]) * 0.012
-                + Math.sin(t * 2.3 * animMult + vPhase[i]*1.7) * 0.008;
-      const d = 1 + wob + dispAmp * (Math.sin(t * 3.4 + vPhase[i]) * 0.5 + 0.5);
+      const wob = Math.sin(t * 0.6 * animMult + vPhase[i]) * 0.010
+                + Math.sin(t * 1.8 * animMult + vPhase[i]*1.7) * 0.006;
+      const d = 1 + wob + dispAmp * (Math.sin(t * 3.0 + vPhase[i]) * 0.5 + 0.5);
       const x0 = vx0[i] * d, y0 = vy0[i] * d, z0 = vz0[i] * d;
 
-      // rotate Y
       const x1 = x0 * cY - z0 * sY;
       const z1 = x0 * sY + z0 * cY;
-      // rotate X
       const y1 = y0 * cX - z1 * sX;
       const z2 = y0 * sX + z1 * cX;
 
@@ -785,9 +910,9 @@
       sy[i] = cy + y1 * R * persp;
     }
 
-    // -------- OUTER BLOOM (swells with activation + amp) --------
-    const bloomR = baseR * (1.6 + state.activation * 0.5 + state.amp * 0.4);
-    const bloomA = (0.07 + state.activation * 0.14 + state.amp * 0.2) * fade;
+    // REFINED: softer bloom — less noisy
+    const bloomR = baseR * (1.5 + state.activation * 0.4 + state.amp * 0.3);
+    const bloomA = (0.05 + state.activation * 0.11 + state.amp * 0.16) * fade;
     const bloom = ctx.createRadialGradient(cx, cy, baseR*0.2, cx, cy, bloomR);
     bloom.addColorStop(0,  `rgba(${rgbStr},${bloomA})`);
     bloom.addColorStop(0.5,`rgba(${rgbStr},${bloomA*0.35})`);
@@ -795,12 +920,12 @@
     ctx.fillStyle = bloom;
     ctx.beginPath(); ctx.arc(cx, cy, bloomR, 0, Math.PI*2); ctx.fill();
 
-    // -------- expanding voice rings (when active) --------
+    // Voice rings
     if (state.activation > 0.05){
       for (let k=0;k<3;k++){
-        const phase = ((t * (0.4 + k*0.1) + k*0.33) % 1);
-        const rr = R * (1.0 + phase * 0.9);
-        const a = (1 - phase) * 0.22 * state.activation * fade;
+        const phase = ((t * (0.35 + k*0.08) + k*0.33) % 1);
+        const rr = R * (1.0 + phase * 0.8);
+        const a = (1 - phase) * 0.18 * state.activation * fade;
         ctx.globalAlpha = a;
         ctx.strokeStyle = acc;
         ctx.lineWidth = 1;
@@ -809,33 +934,29 @@
       ctx.globalAlpha = 1;
     }
 
-    // -------- EDGES (depth-sorted, painter's algorithm) --------
-    // compute edge midpoint z, sort back-to-front
+    // EDGES — depth sorted
     for (let i=0;i<E;i++){
       edgeZ[i] = (tz[ea[i]] + tz[eb[i]]) * 0.5;
     }
-    // JS sort on indices
     const order = Array.from(edgeOrder);
     order.sort((i, j) => edgeZ[i] - edgeZ[j]);
 
-    const ampK = state.amp * state.activation; // 0..1
-    const pulseBase = 0.18 + state.activation * 0.22; // idle dim, active brighter
+    const ampK = state.amp * state.activation;
+    // REFINED: tighter edge opacity — less busy
+    const pulseBase = 0.12 + state.activation * 0.18;
     ctx.lineCap = 'round';
 
     for (let k=0;k<E;k++){
       const i = order[k];
       const a = ea[i], b = eb[i];
-      const zMid = edgeZ[i]; // -1..1, back..front
-      const depth = (zMid + 1) * 0.5; // 0..1
+      const zMid = edgeZ[i];
+      const depth = (zMid + 1) * 0.5;
 
-      // edge pulse — traveling along the mesh using phase
-      const pulse = Math.sin(t * 2.2 * animMult + ePhase[i]) * 0.5 + 0.5;
+      const pulse = Math.sin(t * 1.6 * animMult + ePhase[i]) * 0.5 + 0.5;
+      const alpha = (pulseBase + depth * 0.38 + pulse * 0.10 + ampK * 0.5) * fade;
 
-      // alpha: depth gives back fade, pulse + amp give liveliness
-      const alpha = (pulseBase + depth * 0.45 + pulse * 0.15 + ampK * 0.55) * fade;
-
-      ctx.strokeStyle = `rgba(${rgbStr},${Math.min(0.95, alpha)})`;
-      ctx.lineWidth = 0.35 + depth * 0.45 + ampK * 0.5;
+      ctx.strokeStyle = `rgba(${rgbStr},${Math.min(0.85, alpha)})`;
+      ctx.lineWidth = 0.3 + depth * 0.4 + ampK * 0.45;
 
       ctx.beginPath();
       ctx.moveTo(sx[a], sy[a]);
@@ -843,9 +964,7 @@
       ctx.stroke();
     }
 
-    // -------- VERTICES (dots) --------
-    // draw back first, front last so front sits on top
-    // simple: iterate in z order (reuse same sort by vertex z)
+    // VERTICES — all accent-colored now (no white cores) for cohesion
     const vOrder = [];
     for (let i=0;i<V;i++) vOrder.push(i);
     vOrder.sort((i,j) => tz[i] - tz[j]);
@@ -853,30 +972,28 @@
     for (let k=0;k<V;k++){
       const i = vOrder[k];
       const depth = (tz[i] + 1) * 0.5;
-      const r = (0.9 + depth * 1.6 + ampK * 1.2) * sp[i];
-      const alpha = (0.25 + depth * 0.65 + ampK * 0.3) * fade;
+      const r = (0.8 + depth * 1.4 + ampK * 1.0) * sp[i];
+      const alpha = (0.22 + depth * 0.6 + ampK * 0.25) * fade;
 
-      // front-hemisphere verts slightly warmer / whiter core
       if (depth > 0.62){
-        // glow halo
-        ctx.fillStyle = `rgba(${rgbStr},${alpha * 0.35})`;
-        ctx.beginPath(); ctx.arc(sx[i], sy[i], r * 2.2, 0, Math.PI*2); ctx.fill();
-        // solid core
-        ctx.fillStyle = `rgba(255,255,255,${Math.min(0.95, alpha + 0.1)})`;
+        // front verts: accent glow halo + brighter accent core (no white)
+        ctx.fillStyle = `rgba(${rgbStr},${alpha * 0.3})`;
+        ctx.beginPath(); ctx.arc(sx[i], sy[i], r * 2.0, 0, Math.PI*2); ctx.fill();
+        ctx.fillStyle = `rgba(${rgbStr},${Math.min(0.95, alpha + 0.15)})`;
         ctx.beginPath(); ctx.arc(sx[i], sy[i], r, 0, Math.PI*2); ctx.fill();
       } else {
-        ctx.fillStyle = `rgba(${rgbStr},${alpha})`;
-        ctx.beginPath(); ctx.arc(sx[i], sy[i], r * 0.75, 0, Math.PI*2); ctx.fill();
+        ctx.fillStyle = `rgba(${rgbStr},${alpha * 0.85})`;
+        ctx.beginPath(); ctx.arc(sx[i], sy[i], r * 0.7, 0, Math.PI*2); ctx.fill();
       }
     }
 
-    // -------- HOT CORE (when active) --------
+    // Hot core when active (accent-only)
     if (state.activation > 0.05){
-      const coreR = 2 + state.amp * 6 * state.activation;
-      const coreA = (0.7 * state.activation) * fade;
+      const coreR = 2 + state.amp * 5 * state.activation;
+      const coreA = (0.55 * state.activation) * fade;
       const coreGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, coreR * 6);
-      coreGrad.addColorStop(0, `rgba(255,255,255,${coreA})`);
-      coreGrad.addColorStop(0.25, `rgba(${rgbStr},${coreA * 0.6})`);
+      coreGrad.addColorStop(0, `rgba(${rgbStr},${coreA * 1.2})`);
+      coreGrad.addColorStop(0.25, `rgba(${rgbStr},${coreA * 0.55})`);
       coreGrad.addColorStop(1, 'transparent');
       ctx.fillStyle = coreGrad;
       ctx.beginPath(); ctx.arc(cx, cy, coreR * 6, 0, Math.PI*2); ctx.fill();
@@ -887,9 +1004,7 @@
   }
   requestAnimationFrame(render);
 
-  // =========================================================
-  // PUBLIC: HUD + button wiring
-  // =========================================================
+  // ---------- PUBLIC ----------
   const hudStatus = document.getElementById('hero-status');
   const btnHear = document.getElementById('hear-btn');
   const btnHearLabel = document.getElementById('hear-btn-label');
@@ -910,18 +1025,14 @@
   }
 
   async function activate(){
-    // awaken sequence: thinking → listening
     setStatus('WAKING…', 'thinking');
     state.startedAt = performance.now();
     const ok = await startMic();
     if (!ok){
-      // fall back to simulated conversation if mic denied
       simulatedLoop();
       return;
     }
     setTimeout(() => setStatus('LISTENING', 'listening'), 420);
-
-    // After some listening time with amp, pretend to respond
     scheduleAutoResponse();
   }
 
@@ -945,7 +1056,6 @@
   }
 
   function simulatedLoop(){
-    // no mic — cycle through states using synthetic audio
     setStatus('LISTENING', 'listening');
     const step = () => {
       if (state.mode === 'idle') return;
@@ -978,17 +1088,14 @@
     });
   }
 
-  // expose for debugging
   window.__orb = { state, activate, deactivate };
 })();
-
 </script>
 <script>
 /* ===========================================================
    LIVE DEMO — scripted calls + waveform
    =========================================================== */
 (() => {
-  // ---------- SCRIPTS ----------
   const SCRIPTS = {
     dental: {
       caller: { name: "Maria Rodriguez", phone: "+1 (415) 555-0182", initials: "MR" },
@@ -1068,7 +1175,6 @@
     }
   };
 
-  // ---------- DOM ----------
   const panel = {
     name: document.getElementById('demo-caller'),
     meta: document.getElementById('demo-meta'),
@@ -1151,14 +1257,12 @@
     panel.transcript.scrollTop = panel.transcript.scrollHeight;
   }
 
-  // buttons
   panel.toggle.addEventListener('click', () => {
     if (playing) stop(); else start();
   });
   panel.reset.addEventListener('click', reset);
   panel.inds.forEach(b => b.addEventListener('click', () => setIndustry(b.dataset.ind)));
 
-  // auto-start when scrolled into view (only first time)
   let started = false;
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(en => {
@@ -1170,7 +1274,6 @@
   }, { threshold: 0.35 });
   io.observe(document.getElementById('demo'));
 
-  // ---------- WAVE ----------
   const waveCanvas = document.getElementById('wave');
   const wctx = waveCanvas.getContext('2d');
   let wW, wH, wDPR;
@@ -1194,7 +1297,7 @@
     const envScale = waveActive ? 1 : 0.12;
     for (let i=0;i<bars;i++){
       const x = i*4;
-      const dist = Math.abs(i - bars/2) / (bars/2); // 0 center, 1 edges
+      const dist = Math.abs(i - bars/2) / (bars/2);
       const env = (1 - Math.pow(dist, 1.6));
       const wob = Math.sin(t*2.2 + i*0.22) * 0.5 + Math.sin(t*3.7 + i*0.11) * 0.5;
       const h = Math.max(1, env * (wH*0.45) * (0.5 + wob*0.5) * envScale);
@@ -1207,21 +1310,17 @@
   }
   requestAnimationFrame(drawWave);
 })();
-
 </script>
 <script>
 /* ===========================================================
    APP — nav, reveals, metrics, ROI, tweaks
    =========================================================== */
 (() => {
-
-  // ---------- NAV SCROLL ----------
   const nav = document.getElementById('nav');
   const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 10);
   window.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
 
-  // ---------- REVEAL ON SCROLL ----------
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(en => {
       if (en.isIntersecting){
@@ -1232,7 +1331,6 @@
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  // ---------- STEP CARD MOUSE HIGHLIGHT ----------
   document.querySelectorAll('.step').forEach(card => {
     card.addEventListener('mousemove', e => {
       const r = card.getBoundingClientRect();
@@ -1241,7 +1339,6 @@
     });
   });
 
-  // ---------- METRIC COUNT-UP ----------
   const counters = document.querySelectorAll('.metric-num');
   const cio = new IntersectionObserver((entries)=>{
     entries.forEach(en => {
@@ -1264,7 +1361,6 @@
   }, { threshold: 0.5 });
   counters.forEach(c => cio.observe(c));
 
-  // ---------- LIVE CLOCK + COUNT ----------
   const timeEl = document.getElementById('live-time');
   const countEl = document.getElementById('live-count');
   function tickClock(){
@@ -1276,13 +1372,11 @@
     if (timeEl) timeEl.innerHTML = `${h.toString().padStart(2,'0')}:${m}<span class="ampm">${ampm}</span>`;
   }
   tickClock(); setInterval(tickClock, 15000);
-  // count grows slowly
   if (countEl){
     let n = 14;
     setInterval(()=>{ if (Math.random() > 0.4) { n++; countEl.textContent = n; } }, 3500);
   }
 
-  // ---------- ROI ----------
   const roi = {
     calls: document.getElementById('roi-calls'),
     miss: document.getElementById('roi-miss'),
@@ -1313,7 +1407,7 @@
     roi.closeV.textContent = roi.close.value;
 
     const missedPerDay = calls * miss;
-    const recoveredPerDay = missedPerDay * 0.85; // halo catches 85%
+    const recoveredPerDay = missedPerDay * 0.85;
     const newJobsPerDay = recoveredPerDay * close;
     const dailyRev = newJobsPerDay * value;
     const yearly = dailyRev * 365;
@@ -1324,12 +1418,10 @@
     roiAnimTargets = { year: yearly, month: monthly, week: weekly, saved: savedYr };
   }
   function tickRoi(){
-    let changed = false;
     for (const k of ['year','month','week','saved']){
       const diff = roiAnimTargets[k] - roiAnimCurr[k];
       if (Math.abs(diff) > 0.5){
         roiAnimCurr[k] += diff * 0.14;
-        changed = true;
       } else {
         roiAnimCurr[k] = roiAnimTargets[k];
       }
@@ -1341,7 +1433,6 @@
   updateRoi();
   requestAnimationFrame(tickRoi);
 
-  // ---------- TWEAKS ----------
   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
     "accent": "#4ade80",
     "font": "instrument",
@@ -1399,7 +1490,6 @@
 
   applyAll();
 
-  // ---------- EDIT MODE PROTOCOL ----------
   const tweaksPanel = document.getElementById('tweaks');
   const closeBtn = document.getElementById('tweaks-close');
 
@@ -1414,7 +1504,6 @@
   });
   try{ window.parent.postMessage({type:'__edit_mode_available'}, '*'); }catch(e){}
 })();
-
 </script>
 </body>
 </html>
