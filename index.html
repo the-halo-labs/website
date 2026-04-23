@@ -1,0 +1,1420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Halo Voice — Never miss another call.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ───────────────────────────── NAV ───────────────────────────── -->
+<header class="nav" id="nav">
+  <a href="#top" class="brand" aria-label="Halo Voice home">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 28 28" width="22" height="22"><circle cx="14" cy="14" r="11" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="14" cy="14" r="5" fill="currentColor"/><circle cx="14" cy="14" r="8" fill="none" stroke="currentColor" stroke-width=".6" opacity=".5"/></svg>
+    </span>
+    <span class="brand-word">Halo<span class="brand-word-dim">Voice</span></span>
+  </a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#how">How it works</a>
+    <a href="#demo">Live demo</a>
+    <a href="#industries">Industries</a>
+    <a href="#features">Platform</a>
+    <a href="#pricing">Pricing</a>
+  </nav>
+  <div class="nav-cta">
+    <a href="#demo" class="btn btn-ghost">Try it live</a>
+    <a href="#book" class="btn btn-primary">Book a demo <span class="arr">→</span></a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ───────────────────────────── HERO (pinned orb) ───────────────────────────── -->
+<section class="hero" id="hero">
+  <div class="hero-stage">
+    <canvas id="orb" aria-hidden="true"></canvas>
+    <div class="hero-vignette" aria-hidden="true"></div>
+    <div class="hero-grid" aria-hidden="true"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="pulse"></span>
+      <span class="mono">HALO&nbsp;CORE&nbsp;//&nbsp;<span id="hero-status">STANDBY</span></span>
+    </div>
+    <h1 class="hero-title" id="hero-headline">
+      <span class="line">Never miss</span>
+      <span class="line"><em>another</em> call.</span>
+    </h1>
+    <p class="hero-sub">
+      Halo Voice is a 24/7 AI receptionist for the businesses that keep the world running.
+      It answers, qualifies, and books — in any language, on the first ring.
+    </p>
+    <div class="hero-ctas">
+      <a href="#book" class="btn btn-primary btn-lg">Book a demo <span class="arr">→</span></a>
+      <button type="button" id="hear-btn" class="btn btn-ghost btn-lg">
+        <span class="play-dot"></span> <span id="hear-btn-label">Hear it live</span>
+      </button>
+    </div>
+
+    <div class="hero-metrics">
+      <div class="metric">
+        <span class="metric-num" data-count="98">0</span><span class="metric-unit">%</span>
+        <span class="metric-label">answer rate</span>
+      </div>
+      <div class="metric">
+        <span class="metric-num" data-count="0.8">0</span><span class="metric-unit">s</span>
+        <span class="metric-label">avg. pickup</span>
+      </div>
+      <div class="metric">
+        <span class="metric-num" data-count="24">0</span><span class="metric-unit">/7</span>
+        <span class="metric-label">always on</span>
+      </div>
+      <div class="metric">
+        <span class="metric-num" data-count="42">0</span><span class="metric-unit">+</span>
+        <span class="metric-label">languages</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-hud" aria-hidden="true">
+    <div class="hud-row"><span>LAT</span><span>38ms</span></div>
+    <div class="hud-row"><span>CH</span><span>01/64</span></div>
+    <div class="hud-row"><span>MODEL</span><span>halo-core</span></div>
+    <div class="hud-row"><span>NODE</span><span>ap-southeast-2</span></div>
+    <div class="hud-row"><span>STACK</span><span>livekit · webrtc</span></div>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">
+    <span class="mono">scroll</span>
+    <span class="scroll-line"></span>
+  </div>
+</section>
+
+<!-- ───────────────────────────── LOGO STRIP ───────────────────────────── -->
+<section class="logos reveal">
+  <p class="mono mono-dim">Trusted by 1,200+ businesses from Main Street to the Fortune 500</p>
+  <div class="logo-row">
+    <span class="logo-item">◐ NORTHWIND</span>
+    <span class="logo-item">▲ apex dental</span>
+    <span class="logo-item">▮▮ meridian law</span>
+    <span class="logo-item">◇ blueflame hvac</span>
+    <span class="logo-item">⬡ keystone realty</span>
+    <span class="logo-item">✦ fidelis insurance</span>
+    <span class="logo-item">╱╱ caldera plumbing</span>
+  </div>
+</section>
+
+<!-- ───────────────────────────── HOW IT WORKS ───────────────────────────── -->
+<section class="section how" id="how">
+  <div class="section-head reveal">
+    <span class="mono mono-dim">01 / how it works</span>
+    <h2>Three steps. One perfect receptionist.</h2>
+    <p class="lede">Connect your number, train on your business, and let Halo handle every call — while your team does the work that actually pays.</p>
+  </div>
+
+  <div class="steps">
+    <article class="step reveal">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3>Port your line in 4 minutes</h3>
+        <p>Forward an existing number or spin up a new one. SIP, Twilio, native carrier — whatever you use, we plug in.</p>
+        <div class="step-visual step-visual-port">
+          <div class="port-line"><span class="dot"></span><span class="mono">(415) 555-0142</span><span class="tag">active</span></div>
+          <div class="port-arrow">→</div>
+          <div class="port-line port-halo"><span class="dot dot-accent"></span><span class="mono">halo://agent-9f3</span><span class="tag tag-accent">routed</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="step reveal">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3>Train it on your business</h3>
+        <p>Drop in your website, FAQs, pricing, and schedule. Halo reads it, remembers it, and speaks in your brand voice.</p>
+        <div class="step-visual step-visual-train">
+          <div class="train-row"><span class="train-check">✓</span><span>website.com</span><span class="mono mono-dim">indexed</span></div>
+          <div class="train-row"><span class="train-check">✓</span><span>pricing.pdf</span><span class="mono mono-dim">142 entries</span></div>
+          <div class="train-row"><span class="train-check">✓</span><span>Google Calendar</span><span class="mono mono-dim">synced</span></div>
+          <div class="train-row train-live"><span class="train-check train-pulse">●</span><span>Learning your tone…</span><span class="mono mono-accent">98%</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="step reveal">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3>Go live. Sleep easy.</h3>
+        <p>Halo picks up on the first ring, books the job, updates your CRM, and texts you a summary. Every call. Every hour.</p>
+        <div class="step-visual step-visual-live">
+          <div class="live-clock"><span class="live-time" id="live-time">02:47<span class="ampm">am</span></span><span class="live-label mono">calls handled tonight</span><span class="live-count" id="live-count">14</span></div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ───────────────────────────── LIVE DEMO ───────────────────────────── -->
+<section class="section demo" id="demo">
+  <div class="section-head reveal">
+    <span class="mono mono-dim">02 / live demo</span>
+    <h2>A real call, happening right now.</h2>
+    <p class="lede">This is Halo answering an inbound for a dental practice. Press play — or pick a different industry.</p>
+  </div>
+
+  <div class="demo-wrap reveal">
+    <aside class="demo-industries" role="tablist" aria-label="Industry">
+      <button class="ind active" data-ind="dental" role="tab">Dental</button>
+      <button class="ind" data-ind="hvac" role="tab">HVAC</button>
+      <button class="ind" data-ind="law" role="tab">Law firm</button>
+      <button class="ind" data-ind="realestate" role="tab">Real estate</button>
+      <button class="ind" data-ind="plumbing" role="tab">Plumbing</button>
+    </aside>
+
+    <div class="demo-panel">
+      <header class="demo-header">
+        <div class="demo-caller">
+          <div class="demo-avatar">MR</div>
+          <div>
+            <div class="demo-name" id="demo-caller">Maria Rodriguez</div>
+            <div class="mono mono-dim" id="demo-meta">+1 (415) 555-0182 · inbound</div>
+          </div>
+        </div>
+        <div class="demo-status">
+          <span class="rec-dot"></span>
+          <span class="mono" id="demo-status-txt">CONNECTED · <span id="demo-timer">00:00</span></span>
+        </div>
+      </header>
+
+      <div class="demo-wave" aria-hidden="true">
+        <canvas id="wave"></canvas>
+      </div>
+
+      <div class="demo-transcript" id="transcript" role="log" aria-live="polite"></div>
+
+      <footer class="demo-footer">
+        <button class="demo-btn" id="demo-toggle"><span class="play-ico">▶</span> <span id="demo-toggle-label">Play call</span></button>
+        <button class="demo-btn demo-btn-ghost" id="demo-reset">↻ Replay</button>
+        <div class="demo-tags">
+          <span class="tag">✓ Booked appointment</span>
+          <span class="tag">✓ CRM updated</span>
+          <span class="tag">✓ SMS sent</span>
+        </div>
+      </footer>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── INDUSTRIES ───────────────────────────── -->
+<section class="section industries" id="industries">
+  <div class="section-head reveal">
+    <span class="mono mono-dim">03 / industries</span>
+    <h2>Tuned for the businesses that run on phone calls.</h2>
+    <p class="lede">Every industry pack ships with domain-specific intents, vocabulary, compliance rules, and CRM connectors — live on day one.</p>
+  </div>
+
+  <div class="ind-grid">
+    <!-- 8 cards -->
+    <article class="ind-card reveal"><div class="ind-gly">⬢</div><h3>Dental offices</h3><p>Appointment booking, insurance pre-check, reminders, emergency triage.</p><div class="ind-meta mono">Dentrix · Open Dental · Eaglesoft</div></article>
+    <article class="ind-card reveal"><div class="ind-gly">▲</div><h3>HVAC</h3><p>Service intake, dispatch routing, quote recall, seasonal campaigns.</p><div class="ind-meta mono">ServiceTitan · Housecall Pro</div></article>
+    <article class="ind-card reveal"><div class="ind-gly">╱</div><h3>Plumbing</h3><p>Emergency vs. scheduled triage, zip-code dispatch, upfront pricing.</p><div class="ind-meta mono">Jobber · ServiceTitan</div></article>
+    <article class="ind-card reveal"><div class="ind-gly">✦</div><h3>Electricians</h3><p>Safety-first triage, permit questions, photo-to-job intake via SMS.</p><div class="ind-meta mono">FieldEdge · Jobber</div></article>
+    <article class="ind-card reveal"><div class="ind-gly">▮</div><h3>Law firms</h3><p>Conflict checks, intake forms, confidentiality, bilingual support.</p><div class="ind-meta mono">Clio · MyCase · Smokeball</div></article>
+    <article class="ind-card reveal"><div class="ind-gly">◇</div><h3>Accountants</h3><p>Tax-season overflow, document checklists, client onboarding.</p><div class="ind-meta mono">QuickBooks · Karbon</div></article>
+    <article class="ind-card reveal"><div class="ind-gly">⬡</div><h3>Real estate</h3><p>Lead qualification, showing scheduling, listing Q&A in any language.</p><div class="ind-meta mono">Follow Up Boss · kvCORE</div></article>
+    <article class="ind-card reveal"><div class="ind-gly">◐</div><h3>Insurance brokers</h3><p>Quote intake, renewals, FNOL first-notice-of-loss, compliance logging.</p><div class="ind-meta mono">Applied Epic · AMS360</div></article>
+  </div>
+</section>
+
+<!-- ───────────────────────────── FEATURES ───────────────────────────── -->
+<section class="section features" id="features">
+  <div class="section-head reveal">
+    <span class="mono mono-dim">04 / platform</span>
+    <h2>Enterprise voice infrastructure. Main-street simple.</h2>
+  </div>
+
+  <div class="feat-grid">
+    <article class="feat feat-wide reveal">
+      <div class="feat-top">
+        <span class="mono mono-dim">01 · latency</span>
+        <h3>Sub-second response.</h3>
+      </div>
+      <div class="feat-gauge">
+        <div class="gauge"><span class="gauge-fill" style="--pct:14%"></span><span class="gauge-label">Halo</span><span class="gauge-val mono">380ms</span></div>
+        <div class="gauge"><span class="gauge-fill" style="--pct:44%" data-dim></span><span class="gauge-label">Industry avg.</span><span class="gauge-val mono">1,200ms</span></div>
+        <div class="gauge"><span class="gauge-fill" style="--pct:72%" data-dim></span><span class="gauge-label">Human receptionist</span><span class="gauge-val mono">1,900ms</span></div>
+      </div>
+      <p>Streaming STT, speculative reasoning, and a proprietary voice model get to the first word faster than most humans can say "hello."</p>
+    </article>
+
+    <article class="feat reveal">
+      <div class="feat-top"><span class="mono mono-dim">02 · coverage</span><h3>42 languages. One agent.</h3></div>
+      <div class="lang-cloud">
+        <span>English</span><span>Spanish</span><span>Mandarin</span><span>French</span><span>Hindi</span><span>Arabic</span><span>Portuguese</span><span>German</span><span>Vietnamese</span><span>Tagalog</span><span>Korean</span><span>+31</span>
+      </div>
+    </article>
+
+    <article class="feat reveal">
+      <div class="feat-top"><span class="mono mono-dim">03 · compliance</span><h3>HIPAA, SOC&nbsp;2, PCI.</h3></div>
+      <div class="badge-row">
+        <span class="badge">HIPAA</span><span class="badge">SOC 2 · II</span><span class="badge">PCI-DSS</span><span class="badge">GDPR</span><span class="badge">TCPA</span>
+      </div>
+      <p>Every call is encrypted, logged, and redactable. You own the data, always.</p>
+    </article>
+
+    <article class="feat reveal">
+      <div class="feat-top"><span class="mono mono-dim">04 · handoff</span><h3>Warm transfers, not cold drops.</h3></div>
+      <p>When a human is needed, Halo briefs them first — caller name, intent, sentiment, and a 1-line summary — so nobody repeats themselves.</p>
+      <div class="handoff">
+        <div class="hand-node">Halo</div>
+        <div class="hand-line"></div>
+        <div class="hand-brief mono">
+          <div>caller: <span>Derek L.</span></div>
+          <div>intent: <span>emergency leak</span></div>
+          <div>sent.: <span class="accent">frustrated</span></div>
+        </div>
+        <div class="hand-line"></div>
+        <div class="hand-node hand-node-accent">Tech on-call</div>
+      </div>
+    </article>
+
+    <article class="feat feat-wide reveal">
+      <div class="feat-top"><span class="mono mono-dim">05 · memory</span><h3>Remembers every caller. Forgets nothing.</h3></div>
+      <p>Halo knows that Mrs. Alvarez in Unit 4B already called about the thermostat on Tuesday — and she prefers morning appointments in Spanish.</p>
+      <div class="mem-row">
+        <div class="mem-card"><div class="mono mono-dim">CALLER · 4 calls</div><div class="mem-name">Alvarez, R.</div><div class="mem-fact">Prefers morning · Spanish · Unit 4B</div></div>
+        <div class="mem-card"><div class="mono mono-dim">CALLER · 1 call</div><div class="mem-name">Chen, W.</div><div class="mem-fact">New lead · 2BR listing · San Mateo</div></div>
+        <div class="mem-card"><div class="mono mono-dim">CALLER · 12 calls</div><div class="mem-name">Patel, N.</div><div class="mem-fact">VIP · tax-season client · net-30</div></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ───────────────────────────── INTEGRATIONS ───────────────────────────── -->
+<section class="section integrations" id="integrations">
+  <div class="section-head reveal">
+    <span class="mono mono-dim">05 / integrations</span>
+    <h2>Plugs into the tools you already trust.</h2>
+  </div>
+  <div class="integ-grid reveal">
+    <div class="integ">Google Calendar</div>
+    <div class="integ">HubSpot</div>
+    <div class="integ">Salesforce</div>
+    <div class="integ">ServiceTitan</div>
+    <div class="integ">Clio</div>
+    <div class="integ">QuickBooks</div>
+    <div class="integ">Twilio</div>
+    <div class="integ">Jobber</div>
+    <div class="integ">Housecall Pro</div>
+    <div class="integ">Open Dental</div>
+    <div class="integ">Zapier</div>
+    <div class="integ">Slack</div>
+    <div class="integ">Stripe</div>
+    <div class="integ">Zoho</div>
+    <div class="integ">Follow Up Boss</div>
+    <div class="integ integ-more">+ 80 more</div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── ROI CALCULATOR ───────────────────────────── -->
+<section class="section roi" id="roi">
+  <div class="section-head reveal">
+    <span class="mono mono-dim">06 / roi calculator</span>
+    <h2>See what missed calls are costing you.</h2>
+    <p class="lede">Drag the sliders. The math updates live.</p>
+  </div>
+
+  <div class="roi-wrap reveal">
+    <div class="roi-controls">
+      <label class="roi-field">
+        <span class="mono mono-dim">Calls per day</span>
+        <input type="range" id="roi-calls" min="10" max="300" value="80" />
+        <span class="roi-val" id="roi-calls-val">80</span>
+      </label>
+      <label class="roi-field">
+        <span class="mono mono-dim">% missed today</span>
+        <input type="range" id="roi-miss" min="5" max="60" value="28" />
+        <span class="roi-val"><span id="roi-miss-val">28</span>%</span>
+      </label>
+      <label class="roi-field">
+        <span class="mono mono-dim">Avg. job value</span>
+        <input type="range" id="roi-value" min="50" max="5000" step="50" value="450" />
+        <span class="roi-val">$<span id="roi-value-val">450</span></span>
+      </label>
+      <label class="roi-field">
+        <span class="mono mono-dim">Close rate</span>
+        <input type="range" id="roi-close" min="5" max="80" value="35" />
+        <span class="roi-val"><span id="roi-close-val">35</span>%</span>
+      </label>
+    </div>
+
+    <div class="roi-readout">
+      <div class="roi-big">
+        <span class="mono mono-dim">Recovered revenue / year with Halo</span>
+        <div class="roi-amt">$<span id="roi-year">0</span></div>
+      </div>
+      <div class="roi-small-row">
+        <div class="roi-small"><span class="mono mono-dim">per month</span><div>$<span id="roi-month">0</span></div></div>
+        <div class="roi-small"><span class="mono mono-dim">per week</span><div>$<span id="roi-week">0</span></div></div>
+        <div class="roi-small"><span class="mono mono-dim">calls saved/yr</span><div><span id="roi-saved">0</span></div></div>
+      </div>
+      <a href="#book" class="btn btn-primary btn-lg roi-cta">Book a demo <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── PRICING ───────────────────────────── -->
+<section class="section pricing" id="pricing">
+  <div class="section-head reveal">
+    <span class="mono mono-dim">07 / pricing</span>
+    <h2>Priced per call. Not per seat.</h2>
+    <p class="lede">You only pay when Halo connects. No minimums, no per-user fees.</p>
+  </div>
+
+  <div class="price-grid reveal">
+    <article class="price">
+      <div class="price-name">Main Street</div>
+      <div class="price-amt"><span class="price-curr">$</span>0.29<span class="price-per">/min</span></div>
+      <p class="price-blurb">For single-location businesses up to 1,500 calls/mo.</p>
+      <ul class="price-list">
+        <li>1 phone number</li>
+        <li>1 industry pack</li>
+        <li>Email + SMS summaries</li>
+        <li>5 CRM integrations</li>
+      </ul>
+      <a href="#book" class="btn btn-ghost btn-wide">Start free 14-day trial</a>
+    </article>
+    <article class="price price-featured">
+      <div class="price-badge mono">most popular</div>
+      <div class="price-name">Growth</div>
+      <div class="price-amt"><span class="price-curr">$</span>0.19<span class="price-per">/min</span></div>
+      <p class="price-blurb">For multi-location or high-volume SMB.</p>
+      <ul class="price-list">
+        <li>Up to 10 numbers &amp; brands</li>
+        <li>Custom voice &amp; persona</li>
+        <li>Warm transfers &amp; live routing</li>
+        <li>Unlimited integrations</li>
+        <li>Analytics dashboard</li>
+      </ul>
+      <a href="#book" class="btn btn-primary btn-wide">Book a demo</a>
+    </article>
+    <article class="price">
+      <div class="price-name">Enterprise</div>
+      <div class="price-amt price-amt-custom">Custom</div>
+      <p class="price-blurb">White-label, on-prem, or 50k+ calls/mo.</p>
+      <ul class="price-list">
+        <li>Dedicated voice model</li>
+        <li>SSO, SCIM, audit log</li>
+        <li>HIPAA BAA &amp; SOC 2 report</li>
+        <li>99.99% uptime SLA</li>
+        <li>Named solutions engineer</li>
+      </ul>
+      <a href="#book" class="btn btn-ghost btn-wide">Talk to sales</a>
+    </article>
+  </div>
+</section>
+
+<!-- ───────────────────────────── TESTIMONIALS ───────────────────────────── -->
+<section class="section testimonials" id="testimonials">
+  <div class="section-head reveal">
+    <span class="mono mono-dim">08 / the operators</span>
+    <h2>From the people picking up the phone.</h2>
+  </div>
+  <div class="quote-grid">
+    <figure class="quote reveal">
+      <blockquote>"We were bleeding 20 calls a week after hours. Halo booked $42,000 in new jobs its first month. My techs are still gobsmacked."</blockquote>
+      <figcaption><strong>Derek L.</strong> — Owner, Blueflame HVAC · Phoenix</figcaption>
+    </figure>
+    <figure class="quote reveal">
+      <blockquote>"Patients think it's our front-desk lead. It greets them in Spanish, checks their insurance, and books them in 90 seconds."</blockquote>
+      <figcaption><strong>Dr. Anya Patel</strong> — Apex Dental · Queens, NY</figcaption>
+    </figure>
+    <figure class="quote reveal">
+      <blockquote>"The compliance was the sell. HIPAA-ready, conflict checks, full audit log. I stopped losing sleep during intake season."</blockquote>
+      <figcaption><strong>Marcus Reyes</strong> — Partner, Meridian Law · Chicago</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ───────────────────────────── CTA ───────────────────────────── -->
+<section class="section cta-section" id="book">
+  <div class="cta-card reveal">
+    <div class="cta-grid" aria-hidden="true"></div>
+    <span class="mono mono-dim cta-eyebrow">▸ ready when you are</span>
+    <h2 class="cta-title">Your next customer is<br/>calling right now.</h2>
+    <p class="cta-sub">Book a 20-minute demo. We'll spin up an agent on your business before the call ends.</p>
+    <div class="cta-ctas">
+      <a href="#" class="btn btn-primary btn-lg">Book a demo <span class="arr">→</span></a>
+      <a href="#demo" class="btn btn-ghost btn-lg">Try the demo first</a>
+    </div>
+    <div class="cta-foot mono mono-dim">no credit card · live in 48 hours · cancel anytime</div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── FOOTER ───────────────────────────── -->
+<footer class="footer">
+  <div class="foot-top">
+    <div class="foot-brand">
+      <span class="brand-mark"><svg viewBox="0 0 28 28" width="26" height="26"><circle cx="14" cy="14" r="11" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="14" cy="14" r="5" fill="currentColor"/></svg></span>
+      <span class="brand-word">Halo<span class="brand-word-dim">Voice</span></span>
+      <p class="foot-tag">Never miss another call.</p>
+    </div>
+    <div class="foot-cols">
+      <div><h4>Platform</h4><a href="#features">Voice model</a><a href="#integrations">Integrations</a><a href="#features">Security</a><a href="#pricing">Pricing</a></div>
+      <div><h4>Industries</h4><a href="#industries">Dental</a><a href="#industries">HVAC</a><a href="#industries">Legal</a><a href="#industries">Real estate</a></div>
+      <div><h4>Company</h4><a href="#">About</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Contact</a></div>
+      <div><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a><a href="#">HIPAA BAA</a><a href="#">DPA</a></div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span class="mono mono-dim">© 2026 halo voice, inc. · san francisco · austin · london</span>
+    <span class="mono mono-dim">status: <span class="ok">● all systems operational</span></span>
+  </div>
+</footer>
+
+</main>
+
+<!-- ───────────────────────────── TWEAKS ───────────────────────────── -->
+<aside class="tweaks" id="tweaks" hidden>
+  <header class="tweaks-head">
+    <span class="mono">Tweaks</span>
+    <button class="tweaks-close" id="tweaks-close" aria-label="Close">×</button>
+  </header>
+  <div class="tweaks-body">
+    <div class="tweak">
+      <label class="mono mono-dim">Accent color</label>
+      <div class="swatches" id="sw-accent">
+        <button data-val="#4ade80" style="--c:#4ade80"></button>
+        <button data-val="#22d3ee" style="--c:#22d3ee"></button>
+        <button data-val="#a78bfa" style="--c:#a78bfa"></button>
+        <button data-val="#f472b6" style="--c:#f472b6"></button>
+        <button data-val="#fbbf24" style="--c:#fbbf24"></button>
+        <button data-val="#f87171" style="--c:#f87171"></button>
+        <button data-val="#ffffff" style="--c:#ffffff"></button>
+      </div>
+    </div>
+    <div class="tweak">
+      <label class="mono mono-dim">Font pairing</label>
+      <div class="seg" id="sw-font">
+        <button data-val="instrument">Instrument + Inter</button>
+        <button data-val="grotesk">Grotesk</button>
+        <button data-val="dmserif">DM Serif + Inter</button>
+      </div>
+    </div>
+    <div class="tweak">
+      <label class="mono mono-dim">Animation intensity</label>
+      <div class="seg" id="sw-anim">
+        <button data-val="calm">Calm</button>
+        <button data-val="normal">Normal</button>
+        <button data-val="max">Max</button>
+      </div>
+    </div>
+    <div class="tweak">
+      <label class="mono mono-dim">Hero headline</label>
+      <textarea id="sw-head" rows="2"></textarea>
+      <p class="tweak-hint mono mono-dim">wrap the accent word in *asterisks*</p>
+    </div>
+  </div>
+</aside>
+
+<script>
+/* ===========================================================
+   HERO — GEODESIC DOT-SPHERE with live voice reactivity
+   - Icosphere mesh (icosahedron subdivided) -> even triangulation.
+   - Idle: slow rotation, faint edges, dim vertices, soft bloom.
+   - Active: vertices displace outward on amp, edges brighten/pulse,
+     bloom swells, expanding voice rings.
+   - Painter's-algorithm depth sort on edges (back-to-front).
+   =========================================================== */
+(() => {
+  const canvas = document.getElementById('orb');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, DPR;
+  const MAX_DPR = 1.75;
+
+  // ------- state -------
+  const state = {
+    mode: 'idle',         // 'idle' | 'listening' | 'thinking' | 'speaking'
+    amp: 0,               // smoothed 0..1 mic energy (or synthetic when speaking)
+    rawAmp: 0,
+    activation: 0,        // 0..1 how "woken" the sphere is
+    status: 'standby',
+    startedAt: 0
+  };
+
+  // =========================================================
+  // ICOSPHERE — icosahedron subdivided N times
+  // N=3 → 642 verts / 1280 faces / 1920 unique edges.
+  // =========================================================
+  const SUBDIV = 3;
+
+  function buildIcosphere(subdiv){
+    // base icosahedron
+    const t = (1 + Math.sqrt(5)) / 2;
+    let verts = [
+      [-1, t, 0],[ 1, t, 0],[-1,-t, 0],[ 1,-t, 0],
+      [ 0,-1, t],[ 0, 1, t],[ 0,-1,-t],[ 0, 1,-t],
+      [ t, 0,-1],[ t, 0, 1],[-t, 0,-1],[-t, 0, 1],
+    ].map(v => {
+      const l = Math.hypot(v[0],v[1],v[2]);
+      return [v[0]/l, v[1]/l, v[2]/l];
+    });
+    let faces = [
+      [0,11,5],[0,5,1],[0,1,7],[0,7,10],[0,10,11],
+      [1,5,9],[5,11,4],[11,10,2],[10,7,6],[7,1,8],
+      [3,9,4],[3,4,2],[3,2,6],[3,6,8],[3,8,9],
+      [4,9,5],[2,4,11],[6,2,10],[8,6,7],[9,8,1],
+    ];
+
+    // subdivide: for each face, split each edge, normalize midpoints to the sphere
+    const midCache = new Map();
+    function midpoint(a, b){
+      const key = a < b ? `${a}_${b}` : `${b}_${a}`;
+      if (midCache.has(key)) return midCache.get(key);
+      const va = verts[a], vb = verts[b];
+      const mx = (va[0]+vb[0])/2, my = (va[1]+vb[1])/2, mz = (va[2]+vb[2])/2;
+      const l = Math.hypot(mx,my,mz);
+      verts.push([mx/l, my/l, mz/l]);
+      const idx = verts.length - 1;
+      midCache.set(key, idx);
+      return idx;
+    }
+    for (let s=0; s<subdiv; s++){
+      const next = [];
+      for (const [a,b,c] of faces){
+        const ab = midpoint(a,b), bc = midpoint(b,c), ca = midpoint(c,a);
+        next.push([a,ab,ca], [b,bc,ab], [c,ca,bc], [ab,bc,ca]);
+      }
+      faces = next;
+    }
+
+    // unique edges
+    const edgeSet = new Set();
+    const edges = [];
+    for (const [a,b,c] of faces){
+      for (const [p,q] of [[a,b],[b,c],[c,a]]){
+        const key = p < q ? `${p}_${q}` : `${q}_${p}`;
+        if (!edgeSet.has(key)){
+          edgeSet.add(key);
+          edges.push([p,q]);
+        }
+      }
+    }
+    return { verts, edges };
+  }
+
+  const ico = buildIcosphere(SUBDIV);
+  const V = ico.verts.length;
+  const E = ico.edges.length;
+
+  // flat typed arrays — original + transformed
+  const vx0 = new Float32Array(V), vy0 = new Float32Array(V), vz0 = new Float32Array(V);
+  for (let i=0;i<V;i++){ vx0[i]=ico.verts[i][0]; vy0[i]=ico.verts[i][1]; vz0[i]=ico.verts[i][2]; }
+
+  // per-vertex random phase for organic noise
+  const vPhase = new Float32Array(V);
+  for (let i=0;i<V;i++) vPhase[i] = Math.random() * Math.PI * 2;
+
+  // edges as flat Int32 pairs + parallel phase
+  const ea = new Int32Array(E), eb = new Int32Array(E);
+  const ePhase = new Float32Array(E);
+  for (let i=0;i<E;i++){
+    ea[i] = ico.edges[i][0];
+    eb[i] = ico.edges[i][1];
+    ePhase[i] = Math.random() * Math.PI * 2;
+  }
+
+  // transformed verts (recomputed each frame)
+  const tx = new Float32Array(V), ty = new Float32Array(V), tz = new Float32Array(V);
+  const sx = new Float32Array(V), sy = new Float32Array(V), sp = new Float32Array(V); // screen + perspective
+
+  // edge z-sort indices (reused)
+  const edgeOrder = new Int32Array(E);
+  const edgeZ = new Float32Array(E);
+  for (let i=0;i<E;i++) edgeOrder[i] = i;
+
+  // pointer parallax
+  let mx=0, my=0, tmx=0, tmy=0;
+  window.addEventListener('mousemove', e=>{
+    tmx = (e.clientX / window.innerWidth - .5) * 2;
+    tmy = (e.clientY / window.innerHeight - .5) * 2;
+  });
+
+  function size(){
+    DPR = Math.min(window.devicePixelRatio || 1, MAX_DPR);
+    const rect = canvas.getBoundingClientRect();
+    W = rect.width; H = rect.height;
+    canvas.width = W * DPR; canvas.height = H * DPR;
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  size();
+  window.addEventListener('resize', size);
+
+  const accent = () => getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#4ade80';
+  function hexRgb(h){
+    const m = h.replace('#','');
+    const n = m.length === 3 ? m.split('').map(c=>c+c).join('') : m;
+    return { r: parseInt(n.slice(0,2),16), g: parseInt(n.slice(2,4),16), b: parseInt(n.slice(4,6),16) };
+  }
+
+  let t0 = performance.now();
+  let scrollY = 0;
+  window.addEventListener('scroll', ()=>{ scrollY = window.scrollY; }, {passive:true});
+
+  // =========================================================
+  // AUDIO — real mic when permitted, synthetic when speaking
+  // =========================================================
+  let audioCtx=null, analyser=null, micSrc=null, micStream=null, freq=null;
+  let speakSynthT0 = 0;
+
+  async function startMic(){
+    try{
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') await audioCtx.resume();
+      if (!micStream){
+        micStream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation:true, noiseSuppression:true } });
+      }
+      if (!analyser){
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 512;
+        analyser.smoothingTimeConstant = 0.75;
+        freq = new Uint8Array(analyser.frequencyBinCount);
+      }
+      if (!micSrc){
+        micSrc = audioCtx.createMediaStreamSource(micStream);
+        micSrc.connect(analyser);
+      }
+      return true;
+    } catch(e){
+      return false;
+    }
+  }
+  function stopMic(){
+    if (micStream){
+      micStream.getTracks().forEach(tr => tr.stop());
+      micStream = null; micSrc = null;
+    }
+  }
+
+  function currentAmp(){
+    if (state.mode === 'listening' && analyser){
+      analyser.getByteFrequencyData(freq);
+      let sum = 0;
+      for (let i=2;i<60;i++) sum += freq[i];
+      const v = sum / (58 * 255);
+      return Math.min(1, v * 1.9);
+    }
+    if (state.mode === 'speaking'){
+      const dt = (performance.now() - speakSynthT0) / 1000;
+      const env = (Math.sin(dt*6.1)*0.5+0.5) * (Math.sin(dt*1.7)*0.5+0.5);
+      const fine = (Math.sin(dt*14.3)*0.25+0.25);
+      return Math.min(1, (env + fine) * 0.85);
+    }
+    return 0;
+  }
+
+  // =========================================================
+  // RENDER
+  // =========================================================
+  function render(now){
+    const t = (now - t0) / 1000;
+    mx += (tmx - mx) * 0.04;
+    my += (tmy - my) * 0.04;
+
+    const animMult = parseFloat(getComputedStyle(document.body).getPropertyValue('--anim-mult')) || 1;
+
+    const heroH = window.innerHeight;
+    const fade = Math.max(0, 1 - scrollY / (heroH * 0.85));
+
+    ctx.clearRect(0,0,W,H);
+    if (fade <= 0.01){ requestAnimationFrame(render); return; }
+
+    // amp + activation smoothing
+    const tgt = currentAmp();
+    state.rawAmp = tgt;
+    state.amp += (tgt - state.amp) * 0.22;
+    const active = state.mode !== 'idle';
+    state.activation += ((active ? 1 : 0) - state.activation) * 0.08;
+
+    const cx = W/2;
+    const cy = H/2 + Math.min(H*0.03, 28);
+    const baseR = Math.min(W, H) * 0.3;
+
+    const acc = accent();
+    const aRgb = hexRgb(acc);
+    const rgbStr = `${aRgb.r},${aRgb.g},${aRgb.b}`;
+
+    const rotY = t * 0.18 * animMult + mx * 0.2;
+    const rotX = Math.sin(t * 0.11 * animMult) * 0.1 + my * 0.1;
+    const cY = Math.cos(rotY), sY = Math.sin(rotY);
+    const cX = Math.cos(rotX), sX = Math.sin(rotX);
+
+    const breath = 1 + Math.sin(t * 1.0 * animMult) * 0.02;
+    const ampPush = state.amp * 0.10 * state.activation;
+    const R = baseR * (breath + ampPush);
+
+    // per-vertex displacement amount: organic, amp-scaled
+    const dispAmp = (0.02 + state.amp * 0.18 * state.activation);
+    const perspD = 600; // eye distance (arbitrary)
+
+    // -------- transform all verts --------
+    for (let i=0;i<V;i++){
+      // low-freq wobble per vertex (keeps idle alive even without voice)
+      const wob = Math.sin(t * 0.9 * animMult + vPhase[i]) * 0.012
+                + Math.sin(t * 2.3 * animMult + vPhase[i]*1.7) * 0.008;
+      const d = 1 + wob + dispAmp * (Math.sin(t * 3.4 + vPhase[i]) * 0.5 + 0.5);
+      const x0 = vx0[i] * d, y0 = vy0[i] * d, z0 = vz0[i] * d;
+
+      // rotate Y
+      const x1 = x0 * cY - z0 * sY;
+      const z1 = x0 * sY + z0 * cY;
+      // rotate X
+      const y1 = y0 * cX - z1 * sX;
+      const z2 = y0 * sX + z1 * cX;
+
+      tx[i] = x1; ty[i] = y1; tz[i] = z2;
+      const persp = perspD / (perspD - z2 * R * 1.1);
+      sp[i] = persp;
+      sx[i] = cx + x1 * R * persp;
+      sy[i] = cy + y1 * R * persp;
+    }
+
+    // -------- OUTER BLOOM (swells with activation + amp) --------
+    const bloomR = baseR * (1.6 + state.activation * 0.5 + state.amp * 0.4);
+    const bloomA = (0.07 + state.activation * 0.14 + state.amp * 0.2) * fade;
+    const bloom = ctx.createRadialGradient(cx, cy, baseR*0.2, cx, cy, bloomR);
+    bloom.addColorStop(0,  `rgba(${rgbStr},${bloomA})`);
+    bloom.addColorStop(0.5,`rgba(${rgbStr},${bloomA*0.35})`);
+    bloom.addColorStop(1, 'transparent');
+    ctx.fillStyle = bloom;
+    ctx.beginPath(); ctx.arc(cx, cy, bloomR, 0, Math.PI*2); ctx.fill();
+
+    // -------- expanding voice rings (when active) --------
+    if (state.activation > 0.05){
+      for (let k=0;k<3;k++){
+        const phase = ((t * (0.4 + k*0.1) + k*0.33) % 1);
+        const rr = R * (1.0 + phase * 0.9);
+        const a = (1 - phase) * 0.22 * state.activation * fade;
+        ctx.globalAlpha = a;
+        ctx.strokeStyle = acc;
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.arc(cx, cy, rr, 0, Math.PI*2); ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    // -------- EDGES (depth-sorted, painter's algorithm) --------
+    // compute edge midpoint z, sort back-to-front
+    for (let i=0;i<E;i++){
+      edgeZ[i] = (tz[ea[i]] + tz[eb[i]]) * 0.5;
+    }
+    // JS sort on indices
+    const order = Array.from(edgeOrder);
+    order.sort((i, j) => edgeZ[i] - edgeZ[j]);
+
+    const ampK = state.amp * state.activation; // 0..1
+    const pulseBase = 0.18 + state.activation * 0.22; // idle dim, active brighter
+    ctx.lineCap = 'round';
+
+    for (let k=0;k<E;k++){
+      const i = order[k];
+      const a = ea[i], b = eb[i];
+      const zMid = edgeZ[i]; // -1..1, back..front
+      const depth = (zMid + 1) * 0.5; // 0..1
+
+      // edge pulse — traveling along the mesh using phase
+      const pulse = Math.sin(t * 2.2 * animMult + ePhase[i]) * 0.5 + 0.5;
+
+      // alpha: depth gives back fade, pulse + amp give liveliness
+      const alpha = (pulseBase + depth * 0.45 + pulse * 0.15 + ampK * 0.55) * fade;
+
+      ctx.strokeStyle = `rgba(${rgbStr},${Math.min(0.95, alpha)})`;
+      ctx.lineWidth = 0.35 + depth * 0.45 + ampK * 0.5;
+
+      ctx.beginPath();
+      ctx.moveTo(sx[a], sy[a]);
+      ctx.lineTo(sx[b], sy[b]);
+      ctx.stroke();
+    }
+
+    // -------- VERTICES (dots) --------
+    // draw back first, front last so front sits on top
+    // simple: iterate in z order (reuse same sort by vertex z)
+    const vOrder = [];
+    for (let i=0;i<V;i++) vOrder.push(i);
+    vOrder.sort((i,j) => tz[i] - tz[j]);
+
+    for (let k=0;k<V;k++){
+      const i = vOrder[k];
+      const depth = (tz[i] + 1) * 0.5;
+      const r = (0.9 + depth * 1.6 + ampK * 1.2) * sp[i];
+      const alpha = (0.25 + depth * 0.65 + ampK * 0.3) * fade;
+
+      // front-hemisphere verts slightly warmer / whiter core
+      if (depth > 0.62){
+        // glow halo
+        ctx.fillStyle = `rgba(${rgbStr},${alpha * 0.35})`;
+        ctx.beginPath(); ctx.arc(sx[i], sy[i], r * 2.2, 0, Math.PI*2); ctx.fill();
+        // solid core
+        ctx.fillStyle = `rgba(255,255,255,${Math.min(0.95, alpha + 0.1)})`;
+        ctx.beginPath(); ctx.arc(sx[i], sy[i], r, 0, Math.PI*2); ctx.fill();
+      } else {
+        ctx.fillStyle = `rgba(${rgbStr},${alpha})`;
+        ctx.beginPath(); ctx.arc(sx[i], sy[i], r * 0.75, 0, Math.PI*2); ctx.fill();
+      }
+    }
+
+    // -------- HOT CORE (when active) --------
+    if (state.activation > 0.05){
+      const coreR = 2 + state.amp * 6 * state.activation;
+      const coreA = (0.7 * state.activation) * fade;
+      const coreGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, coreR * 6);
+      coreGrad.addColorStop(0, `rgba(255,255,255,${coreA})`);
+      coreGrad.addColorStop(0.25, `rgba(${rgbStr},${coreA * 0.6})`);
+      coreGrad.addColorStop(1, 'transparent');
+      ctx.fillStyle = coreGrad;
+      ctx.beginPath(); ctx.arc(cx, cy, coreR * 6, 0, Math.PI*2); ctx.fill();
+    }
+
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(render);
+  }
+  requestAnimationFrame(render);
+
+  // =========================================================
+  // PUBLIC: HUD + button wiring
+  // =========================================================
+  const hudStatus = document.getElementById('hero-status');
+  const btnHear = document.getElementById('hear-btn');
+  const btnHearLabel = document.getElementById('hear-btn-label');
+
+  function setStatus(label, mode){
+    state.mode = mode;
+    state.status = label;
+    if (hudStatus) hudStatus.textContent = label;
+    if (btnHearLabel){
+      if (mode === 'idle') btnHearLabel.textContent = 'Hear it live';
+      else if (mode === 'listening') btnHearLabel.textContent = 'Listening…  (tap to stop)';
+      else if (mode === 'speaking') btnHearLabel.textContent = 'Halo is speaking…';
+      else if (mode === 'thinking') btnHearLabel.textContent = 'Thinking…';
+    }
+    if (btnHear){
+      btnHear.classList.toggle('hear-active', mode !== 'idle');
+    }
+  }
+
+  async function activate(){
+    // awaken sequence: thinking → listening
+    setStatus('WAKING…', 'thinking');
+    state.startedAt = performance.now();
+    const ok = await startMic();
+    if (!ok){
+      // fall back to simulated conversation if mic denied
+      simulatedLoop();
+      return;
+    }
+    setTimeout(() => setStatus('LISTENING', 'listening'), 420);
+
+    // After some listening time with amp, pretend to respond
+    scheduleAutoResponse();
+  }
+
+  let responseTimer = null;
+  function scheduleAutoResponse(){
+    clearTimeout(responseTimer);
+    responseTimer = setTimeout(() => {
+      if (state.mode !== 'listening') return;
+      setStatus('THINKING', 'thinking');
+      setTimeout(() => {
+        if (state.mode === 'idle') return;
+        speakSynthT0 = performance.now();
+        setStatus('SPEAKING', 'speaking');
+        setTimeout(() => {
+          if (state.mode === 'idle') return;
+          setStatus('LISTENING', 'listening');
+          scheduleAutoResponse();
+        }, 3600 + Math.random()*1800);
+      }, 900);
+    }, 4500);
+  }
+
+  function simulatedLoop(){
+    // no mic — cycle through states using synthetic audio
+    setStatus('LISTENING', 'listening');
+    const step = () => {
+      if (state.mode === 'idle') return;
+      setStatus('THINKING', 'thinking');
+      setTimeout(()=>{
+        if (state.mode === 'idle') return;
+        speakSynthT0 = performance.now();
+        setStatus('SPEAKING', 'speaking');
+        setTimeout(()=>{
+          if (state.mode === 'idle') return;
+          setStatus('LISTENING', 'listening');
+          setTimeout(step, 3200);
+        }, 3600);
+      }, 900);
+    };
+    setTimeout(step, 3500);
+  }
+
+  function deactivate(){
+    clearTimeout(responseTimer);
+    stopMic();
+    setStatus('STANDBY', 'idle');
+  }
+
+  if (btnHear){
+    btnHear.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (state.mode === 'idle') activate();
+      else deactivate();
+    });
+  }
+
+  // expose for debugging
+  window.__orb = { state, activate, deactivate };
+})();
+
+</script>
+<script>
+/* ===========================================================
+   LIVE DEMO — scripted calls + waveform
+   =========================================================== */
+(() => {
+  // ---------- SCRIPTS ----------
+  const SCRIPTS = {
+    dental: {
+      caller: { name: "Maria Rodriguez", phone: "+1 (415) 555-0182", initials: "MR" },
+      lines: [
+        {who:'halo', t: 400, text: "Thanks for calling Apex Dental, this is Halo. How can I help?"},
+        {who:'caller', t: 2400, text: "Hi — I chipped a tooth this morning. Do you have anything today?"},
+        {who:'halo', t: 3800, text: "Oh no, I'm sorry. Let's get you in quickly. Are you an existing patient?"},
+        {who:'caller', t: 2600, text: "Yeah, under Maria Rodriguez."},
+        {who:'action', t: 1200, text: "▸ looking up patient record · found · insurance: Delta PPO"},
+        {who:'halo', t: 3200, text: "Found you, Maria. I have an opening at 2:15 pm with Dr. Kim, or 4:00 pm with Dr. Shah."},
+        {who:'caller', t: 2400, text: "2:15 works, thank you!"},
+        {who:'action', t: 1100, text: "▸ booking 2:15 PM · Dr. Kim · emergency chip repair"},
+        {who:'halo', t: 3000, text: "Booked. I'll text you the confirmation and directions. See you at 2:15."},
+        {who:'action', t: 900, text: "✓ sms sent · ✓ dentrix updated · ✓ doctor notified"},
+      ]
+    },
+    hvac: {
+      caller: { name: "Derek Larson", phone: "+1 (602) 555-0117", initials: "DL" },
+      lines: [
+        {who:'halo', t: 400, text: "Blueflame HVAC, this is Halo — what's going on?"},
+        {who:'caller', t: 2400, text: "My AC just quit and it's 108 outside."},
+        {who:'halo', t: 2600, text: "That's awful, I'll get someone out fast. What zip are you in?"},
+        {who:'caller', t: 2000, text: "85016."},
+        {who:'action', t: 1000, text: "▸ dispatch check · Miguel available · 45 min ETA"},
+        {who:'halo', t: 3400, text: "Good news — Miguel can be there in about 45 minutes. Is that okay?"},
+        {who:'caller', t: 1600, text: "Yes please."},
+        {who:'action', t: 1100, text: "▸ creating job · ServiceTitan · emergency rate · pre-auth $95"},
+        {who:'halo', t: 3200, text: "Booked. Miguel will text when he's 10 out. Stay cool — we'll fix it."},
+        {who:'action', t: 900, text: "✓ job #4821 · ✓ tech dispatched · ✓ sms sent"},
+      ]
+    },
+    law: {
+      caller: { name: "Jordan Kim", phone: "+1 (312) 555-0198", initials: "JK" },
+      lines: [
+        {who:'halo', t: 400, text: "Meridian Law, thank you for calling. This is Halo."},
+        {who:'caller', t: 2400, text: "I need a consultation — employment discrimination case."},
+        {who:'halo', t: 2800, text: "Of course. A few quick intake questions — is that okay?"},
+        {who:'caller', t: 1400, text: "Sure."},
+        {who:'action', t: 1000, text: "▸ conflict check · no conflicts · intake started"},
+        {who:'halo', t: 3200, text: "Can I take your name and the opposing party, if any?"},
+        {who:'caller', t: 2400, text: "Jordan Kim. Company is Northwind Industries."},
+        {who:'action', t: 1200, text: "▸ clio intake · matter draft created"},
+        {who:'halo', t: 3400, text: "Ms. Rivera has a 20-minute consultation open tomorrow at 10am. Should I hold it?"},
+        {who:'caller', t: 1800, text: "Please."},
+        {who:'action', t: 900, text: "✓ consult booked · ✓ NDA emailed · ✓ matter opened"},
+      ]
+    },
+    realestate: {
+      caller: { name: "Priya Shah", phone: "+1 (408) 555-0144", initials: "PS" },
+      lines: [
+        {who:'halo', t: 400, text: "Keystone Realty, this is Halo. How can I help?"},
+        {who:'caller', t: 2400, text: "I saw the listing on Elm — 3-bed? Can I see it this weekend?"},
+        {who:'halo', t: 3000, text: "Yes — 412 Elm. Are you pre-approved or browsing?"},
+        {who:'caller', t: 2000, text: "Pre-approved up to 1.2."},
+        {who:'action', t: 1100, text: "▸ lead score: hot · agent: Jenna T. · calendar checked"},
+        {who:'halo', t: 3200, text: "Great. Jenna has Saturday at 11 or 2. Which works?"},
+        {who:'caller', t: 1400, text: "2 is perfect."},
+        {who:'action', t: 1000, text: "▸ booking saturday 2pm · sending disclosure packet"},
+        {who:'halo', t: 3200, text: "Booked. I'll text address, parking, and the disclosures now."},
+        {who:'action', t: 900, text: "✓ fub updated · ✓ disclosures sent · ✓ agent notified"},
+      ]
+    },
+    plumbing: {
+      caller: { name: "Sam Ortiz", phone: "+1 (503) 555-0166", initials: "SO" },
+      lines: [
+        {who:'halo', t: 400, text: "Caldera Plumbing — this is Halo. What's happening?"},
+        {who:'caller', t: 2400, text: "Water's coming up through the shower drain. It's bad."},
+        {who:'halo', t: 2800, text: "Sounds like a main line backup. Can I ask — is it actively overflowing?"},
+        {who:'caller', t: 1800, text: "It's rising, yeah."},
+        {who:'action', t: 1000, text: "▸ tagged emergency · hydrojet truck on-call · Lee"},
+        {who:'halo', t: 3200, text: "Turn off the main shutoff if you can — Lee's dispatching now. ETA 35 minutes."},
+        {who:'caller', t: 1400, text: "Okay, thank you."},
+        {who:'action', t: 1100, text: "▸ upfront quote: $295 diag + hydrojet $550"},
+        {who:'halo', t: 3000, text: "Lee will text you the quote before any work starts. Hang in there."},
+        {who:'action', t: 900, text: "✓ emergency job · ✓ truck rolling · ✓ quote sent"},
+      ]
+    }
+  };
+
+  // ---------- DOM ----------
+  const panel = {
+    name: document.getElementById('demo-caller'),
+    meta: document.getElementById('demo-meta'),
+    avatar: document.querySelector('.demo-avatar'),
+    timer: document.getElementById('demo-timer'),
+    status: document.getElementById('demo-status-txt'),
+    transcript: document.getElementById('transcript'),
+    toggle: document.getElementById('demo-toggle'),
+    toggleLabel: document.getElementById('demo-toggle-label'),
+    reset: document.getElementById('demo-reset'),
+    inds: document.querySelectorAll('.demo-industries .ind'),
+    playIco: document.querySelector('.demo-btn .play-ico'),
+  };
+
+  let current = 'dental';
+  let playing = false;
+  let lineIdx = 0;
+  let timeoutId = null;
+  let timerId = null;
+  let tSeconds = 0;
+
+  function fmtTime(s){
+    const m = Math.floor(s/60).toString().padStart(2,'0');
+    const sec = Math.floor(s%60).toString().padStart(2,'0');
+    return `${m}:${sec}`;
+  }
+  function setIndustry(key){
+    current = key;
+    panel.inds.forEach(b => b.classList.toggle('active', b.dataset.ind === key));
+    const sc = SCRIPTS[key];
+    panel.name.textContent = sc.caller.name;
+    panel.meta.textContent = `${sc.caller.phone} · inbound`;
+    panel.avatar.textContent = sc.caller.initials;
+    reset();
+  }
+  function reset(){
+    stop();
+    lineIdx = 0; tSeconds = 0;
+    panel.timer.textContent = '00:00';
+    panel.transcript.innerHTML = '';
+    panel.toggleLabel.textContent = 'Play call';
+    panel.playIco.textContent = '▶';
+    setWaveActive(false);
+  }
+  function stop(){
+    playing = false;
+    clearTimeout(timeoutId);
+    clearInterval(timerId);
+    setWaveActive(false);
+    panel.toggleLabel.textContent = lineIdx >= SCRIPTS[current].lines.length ? 'Replay' : 'Resume';
+    panel.playIco.textContent = '▶';
+  }
+  function start(){
+    if (lineIdx >= SCRIPTS[current].lines.length) { lineIdx = 0; tSeconds=0; panel.transcript.innerHTML=''; }
+    playing = true;
+    panel.toggleLabel.textContent = 'Pause';
+    panel.playIco.textContent = '❚❚';
+    timerId = setInterval(()=>{ tSeconds += 1; panel.timer.textContent = fmtTime(tSeconds); }, 1000);
+    setWaveActive(true);
+    next();
+  }
+  function next(){
+    if (!playing) return;
+    const script = SCRIPTS[current];
+    if (lineIdx >= script.lines.length){ stop(); return; }
+    const ln = script.lines[lineIdx++];
+    addBubble(ln.who, ln.text);
+    timeoutId = setTimeout(next, ln.t);
+  }
+  function addBubble(who, text){
+    const el = document.createElement('div');
+    if (who === 'action') {
+      el.className = 'bubble bubble-action';
+      el.textContent = text;
+    } else {
+      el.className = 'bubble ' + (who === 'halo' ? 'bubble-halo' : 'bubble-caller');
+      el.innerHTML = `<span class="who">${who === 'halo' ? 'Halo' : SCRIPTS[current].caller.name.split(' ')[0]}</span>${text}`;
+    }
+    panel.transcript.appendChild(el);
+    panel.transcript.scrollTop = panel.transcript.scrollHeight;
+  }
+
+  // buttons
+  panel.toggle.addEventListener('click', () => {
+    if (playing) stop(); else start();
+  });
+  panel.reset.addEventListener('click', reset);
+  panel.inds.forEach(b => b.addEventListener('click', () => setIndustry(b.dataset.ind)));
+
+  // auto-start when scrolled into view (only first time)
+  let started = false;
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(en => {
+      if (en.isIntersecting && !started){
+        started = true;
+        start();
+      }
+    });
+  }, { threshold: 0.35 });
+  io.observe(document.getElementById('demo'));
+
+  // ---------- WAVE ----------
+  const waveCanvas = document.getElementById('wave');
+  const wctx = waveCanvas.getContext('2d');
+  let wW, wH, wDPR;
+  let waveActive = false;
+  function setWaveActive(on){ waveActive = on; }
+  function sizeW(){
+    wDPR = Math.min(window.devicePixelRatio || 1, 2);
+    const r = waveCanvas.getBoundingClientRect();
+    wW = r.width; wH = r.height;
+    waveCanvas.width = wW * wDPR; waveCanvas.height = wH * wDPR;
+    wctx.setTransform(wDPR,0,0,wDPR,0,0);
+  }
+  sizeW(); window.addEventListener('resize', sizeW);
+
+  function drawWave(now){
+    wctx.clearRect(0,0,wW,wH);
+    const acc = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#4ade80';
+    const bars = Math.floor(wW / 4);
+    const cx = wW/2, cy = wH/2;
+    const t = now/1000;
+    const envScale = waveActive ? 1 : 0.12;
+    for (let i=0;i<bars;i++){
+      const x = i*4;
+      const dist = Math.abs(i - bars/2) / (bars/2); // 0 center, 1 edges
+      const env = (1 - Math.pow(dist, 1.6));
+      const wob = Math.sin(t*2.2 + i*0.22) * 0.5 + Math.sin(t*3.7 + i*0.11) * 0.5;
+      const h = Math.max(1, env * (wH*0.45) * (0.5 + wob*0.5) * envScale);
+      wctx.fillStyle = waveActive ? acc : '#3a3a3f';
+      wctx.globalAlpha = 0.35 + env * 0.65;
+      wctx.fillRect(x, cy - h/2, 2, h);
+    }
+    wctx.globalAlpha = 1;
+    requestAnimationFrame(drawWave);
+  }
+  requestAnimationFrame(drawWave);
+})();
+
+</script>
+<script>
+/* ===========================================================
+   APP — nav, reveals, metrics, ROI, tweaks
+   =========================================================== */
+(() => {
+
+  // ---------- NAV SCROLL ----------
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 10);
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // ---------- REVEAL ON SCROLL ----------
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(en => {
+      if (en.isIntersecting){
+        en.target.classList.add('in');
+        io.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ---------- STEP CARD MOUSE HIGHLIGHT ----------
+  document.querySelectorAll('.step').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+  });
+
+  // ---------- METRIC COUNT-UP ----------
+  const counters = document.querySelectorAll('.metric-num');
+  const cio = new IntersectionObserver((entries)=>{
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      const el = en.target;
+      const target = parseFloat(el.dataset.count);
+      const hasDec = !Number.isInteger(target);
+      const dur = 1400;
+      const t0 = performance.now();
+      const step = (now) => {
+        const p = Math.min(1, (now - t0) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const v = target * eased;
+        el.textContent = hasDec ? v.toFixed(1) : Math.round(v);
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+      cio.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => cio.observe(c));
+
+  // ---------- LIVE CLOCK + COUNT ----------
+  const timeEl = document.getElementById('live-time');
+  const countEl = document.getElementById('live-count');
+  function tickClock(){
+    const d = new Date();
+    let h = d.getHours();
+    const m = d.getMinutes().toString().padStart(2,'0');
+    const ampm = h >= 12 ? 'pm' : 'am';
+    h = h % 12 || 12;
+    if (timeEl) timeEl.innerHTML = `${h.toString().padStart(2,'0')}:${m}<span class="ampm">${ampm}</span>`;
+  }
+  tickClock(); setInterval(tickClock, 15000);
+  // count grows slowly
+  if (countEl){
+    let n = 14;
+    setInterval(()=>{ if (Math.random() > 0.4) { n++; countEl.textContent = n; } }, 3500);
+  }
+
+  // ---------- ROI ----------
+  const roi = {
+    calls: document.getElementById('roi-calls'),
+    miss: document.getElementById('roi-miss'),
+    value: document.getElementById('roi-value'),
+    close: document.getElementById('roi-close'),
+    callsV: document.getElementById('roi-calls-val'),
+    missV: document.getElementById('roi-miss-val'),
+    valueV: document.getElementById('roi-value-val'),
+    closeV: document.getElementById('roi-close-val'),
+    year: document.getElementById('roi-year'),
+    month: document.getElementById('roi-month'),
+    week: document.getElementById('roi-week'),
+    saved: document.getElementById('roi-saved'),
+  };
+  let roiAnimTargets = { year:0, month:0, week:0, saved:0 };
+  let roiAnimCurr   = { year:0, month:0, week:0, saved:0 };
+
+  function fmt(n){ return Math.round(n).toLocaleString('en-US'); }
+
+  function updateRoi(){
+    const calls = +roi.calls.value;
+    const miss = +roi.miss.value / 100;
+    const value = +roi.value.value;
+    const close = +roi.close.value / 100;
+    roi.callsV.textContent = calls;
+    roi.missV.textContent = roi.miss.value;
+    roi.valueV.textContent = value;
+    roi.closeV.textContent = roi.close.value;
+
+    const missedPerDay = calls * miss;
+    const recoveredPerDay = missedPerDay * 0.85; // halo catches 85%
+    const newJobsPerDay = recoveredPerDay * close;
+    const dailyRev = newJobsPerDay * value;
+    const yearly = dailyRev * 365;
+    const monthly = yearly / 12;
+    const weekly = yearly / 52;
+    const savedYr = recoveredPerDay * 365;
+
+    roiAnimTargets = { year: yearly, month: monthly, week: weekly, saved: savedYr };
+  }
+  function tickRoi(){
+    let changed = false;
+    for (const k of ['year','month','week','saved']){
+      const diff = roiAnimTargets[k] - roiAnimCurr[k];
+      if (Math.abs(diff) > 0.5){
+        roiAnimCurr[k] += diff * 0.14;
+        changed = true;
+      } else {
+        roiAnimCurr[k] = roiAnimTargets[k];
+      }
+      roi[k].textContent = fmt(roiAnimCurr[k]);
+    }
+    requestAnimationFrame(tickRoi);
+  }
+  ['calls','miss','value','close'].forEach(k => roi[k].addEventListener('input', updateRoi));
+  updateRoi();
+  requestAnimationFrame(tickRoi);
+
+  // ---------- TWEAKS ----------
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "accent": "#4ade80",
+    "font": "instrument",
+    "anim": "calm",
+    "headline": "Never miss\n*another* call."
+  }/*EDITMODE-END*/;
+
+  const state = { ...TWEAK_DEFAULTS };
+
+  function applyAccent(c){
+    document.documentElement.style.setProperty('--accent', c);
+  }
+  function applyFont(f){
+    document.body.classList.remove('font-instrument','font-grotesk','font-dmserif');
+    document.body.classList.add('font-' + f);
+  }
+  function applyAnim(a){
+    document.body.classList.remove('anim-calm','anim-normal','anim-max');
+    document.body.classList.add('anim-' + a);
+  }
+  function applyHead(text){
+    const el = document.getElementById('hero-headline');
+    const lines = text.split('\n').slice(0,2);
+    el.innerHTML = lines.map(ln => {
+      const html = ln.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+      return `<span class="line">${html}</span>`;
+    }).join('');
+  }
+  function applyAll(){
+    applyAccent(state.accent);
+    applyFont(state.font);
+    applyAnim(state.anim);
+    applyHead(state.headline);
+    markActives();
+  }
+  function markActives(){
+    document.querySelectorAll('#sw-accent button').forEach(b => b.classList.toggle('active', b.dataset.val === state.accent));
+    document.querySelectorAll('#sw-font button').forEach(b => b.classList.toggle('active', b.dataset.val === state.font));
+    document.querySelectorAll('#sw-anim button').forEach(b => b.classList.toggle('active', b.dataset.val === state.anim));
+    const ta = document.getElementById('sw-head'); if (ta && document.activeElement !== ta) ta.value = state.headline;
+  }
+
+  function setKey(k,v){
+    state[k] = v;
+    applyAll();
+    try{
+      window.parent.postMessage({type:'__edit_mode_set_keys', edits:{[k]:v}}, '*');
+    }catch(e){}
+  }
+
+  document.querySelectorAll('#sw-accent button').forEach(b => b.addEventListener('click', () => setKey('accent', b.dataset.val)));
+  document.querySelectorAll('#sw-font button').forEach(b => b.addEventListener('click', () => setKey('font', b.dataset.val)));
+  document.querySelectorAll('#sw-anim button').forEach(b => b.addEventListener('click', () => setKey('anim', b.dataset.val)));
+  document.getElementById('sw-head').addEventListener('input', (e) => setKey('headline', e.target.value));
+
+  applyAll();
+
+  // ---------- EDIT MODE PROTOCOL ----------
+  const tweaksPanel = document.getElementById('tweaks');
+  const closeBtn = document.getElementById('tweaks-close');
+
+  window.addEventListener('message', (ev) => {
+    const d = ev.data || {};
+    if (d.type === '__activate_edit_mode'){ tweaksPanel.hidden = false; }
+    if (d.type === '__deactivate_edit_mode'){ tweaksPanel.hidden = true; }
+  });
+  closeBtn.addEventListener('click', ()=>{
+    tweaksPanel.hidden = true;
+    try{ window.parent.postMessage({type:'__deactivate_edit_mode'}, '*'); }catch(e){}
+  });
+  try{ window.parent.postMessage({type:'__edit_mode_available'}, '*'); }catch(e){}
+})();
+
+</script>
+</body>
+</html>
