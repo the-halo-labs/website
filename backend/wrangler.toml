@@ -1,0 +1,15 @@
+name = "halo-session"
+main = "worker.js"
+compatibility_date = "2026-06-01"
+
+[vars]
+# Lock this to your real domain before launch, e.g. "https://halovoice.com.au"
+ALLOWED_ORIGIN = "*"
+# "gpt-realtime-mini" = ~60% cheaper; "gpt-realtime" (or "gpt-realtime-2") =
+# smartest conversation. At demo volume the cost gap is dollars — pick quality
+# if the demo IS the pitch.
+REALTIME_MODEL = "gpt-realtime-mini"
+VOICE = "marin"
+
+# Set the API key as a secret (never in this file):
+#   npx wrangler secret put OPENAI_API_KEY
