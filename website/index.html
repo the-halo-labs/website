@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Halo Voice — Never miss another call.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+/* ========================================================================
+   HERO — split layout overrides (text left, orb right)
+   Scoped so it overrides the centered defaults in styles.css without
+   breaking mobile.
+   ======================================================================== */
+.hero{
+  padding: calc(var(--nav-h) + 40px) 48px 80px;
+}
+.hero-inner{
+  position: relative; z-index: 2;
+  max-width: 1280px; margin: 0 auto; width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: center;
+  min-height: calc(100vh - var(--nav-h) - 120px);
+}
+
+/* LEFT column — copy */
+.hero-copy{
+  text-align: left;
+  position: relative;
+  z-index: 3;
+  max-width: 620px;
+}
+.hero-copy .hero-eyebrow{ margin-bottom: 26px; }
+.hero-copy .hero-title{
+  font-size: clamp(44px, 6.2vw, 96px);
+  text-align: left;
+  margin: 0 0 22px;
+}
+.hero-copy .hero-sub{
+  text-align: left;
+  margin: 0 0 32px;
+  max-width: 520px;
+  font-size: clamp(15px, 1.1vw, 17px);
+}
+.hero-copy .hero-ctas{ justify-content: flex-start; }
+.hero-copy .hero-metrics{
+  margin-top: 56px;
+  grid-template-columns: repeat(4, auto);
+  justify-content: start;
+  gap: 0 48px;
+  max-width: none;
+}
+.hero-copy .metric{ align-items: flex-start; }
+
+/* Readability scrim behind text only — keeps copy crisp no matter what the orb is doing */
+.hero-copy::before{
+  content:"";
+  position: absolute;
+  inset: -40px -60px -40px -60px;
+  z-index: -1;
+  background: radial-gradient(ellipse 70% 75% at 30% 50%,
+    rgba(10,10,11,0.92) 0%,
+    rgba(10,10,11,0.75) 40%,
+    rgba(10,10,11,0) 80%);
+  pointer-events: none;
+}
+
+/* RIGHT column — orb stage */
+.hero-orb-col{
+  position: relative;
+  height: min(640px, 70vh);
+  min-height: 480px;
+}
+.hero-stage{
+  position: absolute;
+  inset: 0;
+  /* subtle containment ring — "instrument" feel */
+}
+.hero-stage::after{
+  content:"";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: min(520px, 85%);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.05);
+  pointer-events: none;
+  z-index: 2;
+}
+#orb{ position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hero-vignette{
+  background:
+    radial-gradient(600px 600px at 50% 50%, transparent 0%, rgba(10,10,11,.35) 70%, var(--bg) 100%);
+}
+.hero-grid{
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 65%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 65%);
+  opacity: .25;
+}
+
+/* HUD — docked under the orb, quieter */
+.hero-hud{
+  position: absolute;
+  right: auto; left: 50%; top: auto; bottom: 8px;
+  transform: translateX(-50%);
+  flex-direction: row;
+  gap: 18px;
+  padding: 10px 16px;
+  font-size: 10px;
+  background: rgba(10,10,11,.55);
+  border-radius: 99px;
+  z-index: 3;
+}
+.hero-hud .hud-row{ min-width: 0; gap: 8px; }
+.hero-hud .hud-row span:first-child{ color: var(--fg-ghost); }
+
+.scroll-cue{ bottom: 20px; }
+
+/* --- Mobile: fall back to stacked (keeps the version that already looks good) --- */
+@media (max-width: 900px){
+  .hero{ padding: calc(var(--nav-h) + 40px) 24px 60px; }
+  .hero-inner{
+    grid-template-columns: 1fr;
+    gap: 0;
+    min-height: auto;
+  }
+  .hero-copy{
+    text-align: center;
+    max-width: 100%;
+    order: 2;
+    padding-top: 20px;
+  }
+  .hero-copy .hero-title,
+  .hero-copy .hero-sub{ text-align: center; margin-left:auto; margin-right:auto; }
+  .hero-copy .hero-ctas{ justify-content: center; }
+  .hero-copy .hero-metrics{
+    justify-content: center;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px 0;
+    margin-top: 40px;
+  }
+  .hero-copy .metric{ align-items: center; }
+  .hero-copy::before{ display: none; }
+  .hero-orb-col{
+    order: 1;
+    height: 56vh;
+    min-height: 360px;
+  }
+  .hero-hud{ display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ───────────────────────────── NAV ───────────────────────────── -->
+<header class="nav" id="nav">
+  <a href="#top" class="brand" aria-label="Halo Voice home">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 28 28" width="22" height="22"><circle cx="14" cy="14" r="11" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="14" cy="14" r="5" fill="currentColor"/><circle cx="14" cy="14" r="8" fill="none" stroke="currentColor" stroke-width=".6" opacity=".5"/></svg>
+    </span>
+    <span class="brand-word">Halo<span class="brand-word-dim">Voice</span></span>
+  </a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#how">How it works</a>
+    <a href="#demo">Demo</a>
+    <a href="#industries">Industries</a>
+    <a href="#features">Platform</a>
+    <a href="#pricing">Pricing</a>
+  </nav>
+  <div class="nav-cta">
+    <a href="#hero" class="btn btn-ghost">Try it live</a>
+    <a href="#book" class="btn btn-primary">Book a demo <span class="arr">→</span></a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ───────────────────────────── HERO (split: copy | orb) ───────────────────────────── -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+
+    <!-- LEFT: copy -->
+    <div class="hero-copy">
+      <div class="hero-eyebrow">
+        <span class="pulse"></span>
+        <span class="mono">HALO&nbsp;CORE&nbsp;//&nbsp;<span id="hero-status">STANDBY</span></span>
+      </div>
+      <h1 class="hero-title" id="hero-headline">
+        <span class="line">Never miss</span>
+        <span class="line"><em>another</em> call.</span>
+      </h1>
+      <p class="hero-sub">
+        Halo Voice is a 24/7 AI receptionist for the businesses that keep the world running.
+        It answers, qualifies, and books — in any language, on the first ring.
+      </p>
+      <div class="hero-ctas">
+        <a href="#book" class="btn btn-primary btn-lg">Book a demo <span class="arr">→</span></a>
+        <button type="button" id="hear-btn" class="btn btn-ghost btn-lg">
+          <span class="play-dot"></span> <span id="hear-btn-label">Hear it live</span>
+        </button>
+      </div>
+
+      <div class="hero-metrics">
+        <div class="metric">
+          <span class="metric-num" data-count="98">0</span><span class="metric-unit">%</span>
+          <span class="metric-label">answer rate</span>
+        </div>
+        <div class="metric">
+          <span class="metric-num" data-count="0.8">0</span><span class="metric-unit">s</span>
+          <span class="metric-label">avg. pickup</span>
+        </div>
+        <div class="metric">
+          <span class="metric-num" data-count="24">0</span><span class="metric-unit">/7</span>
+          <span class="metric-label">always on</span>
+        </div>
+        <div class="metric">
+          <span class="metric-num" data-count="42">0</span><span class="metric-unit">+</span>
+          <span class="metric-label">languages</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: orb -->
+    <div class="hero-orb-col">
+      <div class="hero-stage">
+        <canvas id="orb" aria-hidden="true"></canvas>
+        <div class="hero-vignette" aria-hidden="true"></div>
+        <div class="hero-grid" aria-hidden="true"></div>
+      </div>
+
+      <div class="hero-hud" aria-hidden="true">
+        <div class="hud-row"><span>LAT</span><span>38ms</span></div>
+        <div class="hud-row"><span>MODEL</span><span>halo-core</span></div>
+        <div class="hud-row"><span>NODE</span><span>ap-se-2</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">
+    <span class="mono">scroll</span>
+    <span class="scroll-line"></span>
+  </div>
+</section>
+
+<!-- ───────────────────────────── LOGO STRIP ───────────────────────────── -->
+<section class="logos reveal">
+  <p class="mono mono-dim">Trusted by 1,200+ businesses from Main Street to the Fortune 500</p>
+  <div class="logo-row">
+    <span class="logo-item">◐ NORTHWIND</span>
+    <span class="logo-item">▲ apex dental</span>
+    <span class="logo-item">▮▮ meridian law</span>
+    <span class="logo-item">◇ blueflame hvac</span>
+    <span class="logo-item">⬡ keystone realty</span>
+    <span class="logo-item">✦ fidelis insurance</span>
+    <span class="logo-item">╱╱ caldera plumbing</span>
+  </div>
+</section>
+
+<!-- ───────────────────────────── HOW IT WORKS ───────────────────────────── -->
+<section class="section how" id="how">
+  <div class="section-head reveal">
+    <span class="mono mono-dim">01 / how it works</span>
+    <h2>Three steps. One perfect receptionist.</h2>
+    <p class="lede">Connect your number, train on your business, and let Halo handle every call — while your team does the work that actually pays.</p>
+  </div>
+
+  <div class="steps">
+    <article class="step reveal">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3>Port your line in 4 minutes</h3>
+        <p>Forward an existing number or spin up a new one. SIP, Twilio, native carrier — whatever you use, we plug in.</p>
+        <div class="step-visual step-visual-port">
+          <div class="port-line"><span class="dot"></span><span class="mono">(415) 555-0142</span><span class="tag">active</span></div>
+          <div class="port-arrow">→</div>
+          <div class="port-line port-halo"><span class="dot dot-accent"></span><span class="mono">halo://agent-9f3</span><span class="tag tag-accent">routed</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="step reveal">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3>Train it on your business</h3>
+        <p>Drop in your website, FAQs, pricing, and schedule. Halo reads it, remembers it, and speaks in your brand voice.</p>
+        <div class="step-visual step-visual-train">
+          <div class="train-row"><span class="train-check">✓</span><span>website.com</span><span class="mono mono-dim">indexed</span></div>
+          <div class="train-row"><span class="train-check">✓</span><span>pricing.pdf</span><span class="mono mono-dim">142 entries</span></div>
+          <div class="train-row"><span class="train-check">✓</span><span>Google Calendar</span><span class="mono mono-dim">synced</span></div>
+          <div class="train-row train-live"><span class="train-check train-pulse">●</span><span>Learning your tone…</span><span class="mono mono-accent">98%</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="step reveal">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3>Go live. Sleep easy.</h3>
+        <p>Halo picks up on the first ring, books the job, updates your CRM, and texts you a summary. Every call. Every hour.</p>
+        <div class="step-visual step-visual-live">
+          <div class="live-clock"><span class="live-time" id="live-time">02:47<span class="ampm">am</span></span><span class="live-label mono">calls handled tonight</span><span class="live-count" id="live-count">14</span></div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ───────────────────────────── DEMO ───────────────────────────── -->
+<section class="section demo" id="demo">
+  <div class="section-head reveal">
+    <span class="mono mono-dim">02 / demo</span>
+    <h2>A real call, happening right now.</h2>
+    <p class="lede">This is Halo answering an inbound for a dental practice. Press play — or pick a different industry.</p>
+  </div>
+
+  <div class="demo-wrap reveal">
+    <aside class="demo-industries" role="tablist" aria-label="Industry">
+      <button class="ind active" data-ind="dental" role="tab">Dental</button>
+      <button class="ind" data-ind="hvac" role="tab">HVAC</button>
+      <button class="ind" data-ind="law" role="tab">Law firm</button>
+      <button class="ind" data-ind="realestate" role="tab">Real estate</button>
+      <button class="ind" data-ind="plumbing" role="tab">Plumbing</button>
+    </aside>
+
+    <div class="demo-panel">
+      <header class="demo-header">
+        <div class="demo-caller">
+          <div class="demo-avatar">MR</div>
+          <div>
+            <div class="demo-name" id="demo-caller">Maria Rodriguez</div>
+            <div class="mono mono-dim" id="demo-meta">+1 (415) 555-0182 · inbound</div>
+          </div>
+        </div>
+        <div class="demo-status">
+          <span class="rec-dot"></span>
+          <span class="mono" id="demo-status-txt">CONNECTED · <span id="demo-timer">00:00</span></span>
+        </div>
+      </header>
+
+      <div class="demo-wave" aria-hidden="true">
+        <canvas id="wave"></canvas>
+      </div>
+
+      <div class="demo-transcript" id="transcript" role="log" aria-live="polite"></div>
+
+      <footer class="demo-footer">
+        <button class="demo-btn" id="demo-toggle"><span class="play-ico">▶</span> <span id="demo-toggle-label">Play sample</span></button>
+        <button class="demo-btn demo-btn-ghost" id="demo-reset">↻ Replay</button>
+        
+        <div class="demo-tags">
+          <span class="tag">✓ Booked appointment</span>
+          <span class="tag">✓ CRM updated</span>
+          <span class="tag">✓ SMS sent</span>
+        </div>
+      </footer>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── INDUSTRIES ───────────────────────────── -->
+<section class="section industries" id="industries">
+  <div class="section-head reveal">
+    <span class="mono mono-dim">03 / industries</span>
+    <h2>Tuned for the businesses that run on phone calls.</h2>
+    <p class="lede">Every industry pack ships with domain-specific intents, vocabulary, compliance rules, and CRM connectors — live on day one.</p>
+  </div>
+
+  <div class="ind-grid">
+    <article class="ind-card reveal"><div class="ind-gly">⬢</div><h3>Dental offices</h3><p>Appointment booking, insurance pre-check, reminders, emergency triage.</p><div class="ind-meta mono">Dentrix · Open Dental · Eaglesoft</div></article>
+    <article class="ind-card reveal"><div class="ind-gly">▲</div><h3>HVAC</h3><p>Service intake, dispatch routing, quote recall, seasonal campaigns.</p><div class="ind-meta mono">ServiceTitan · Housecall Pro</div></article>
+    <article class="ind-card reveal"><div class="ind-gly">╱</div><h3>Plumbing</h3><p>Emergency vs. scheduled triage, zip-code dispatch, upfront pricing.</p><div class="ind-meta mono">Jobber · ServiceTitan</div></article>
+    <article class="ind-card reveal"><div class="ind-gly">✦</div><h3>Electricians</h3><p>Safety-first triage, permit questions, photo-to-job intake via SMS.</p><div class="ind-meta mono">FieldEdge · Jobber</div></article>
+    <article class="ind-card reveal"><div class="ind-gly">▮</div><h3>Law firms</h3><p>Conflict checks, intake forms, confidentiality, bilingual support.</p><div class="ind-meta mono">Clio · MyCase · Smokeball</div></article>
+    <article class="ind-card reveal"><div class="ind-gly">◇</div><h3>Accountants</h3><p>Tax-season overflow, document checklists, client onboarding.</p><div class="ind-meta mono">QuickBooks · Karbon</div></article>
+    <article class="ind-card reveal"><div class="ind-gly">⬡</div><h3>Real estate</h3><p>Lead qualification, showing scheduling, listing Q&A in any language.</p><div class="ind-meta mono">Follow Up Boss · kvCORE</div></article>
+    <article class="ind-card reveal"><div class="ind-gly">◐</div><h3>Insurance brokers</h3><p>Quote intake, renewals, FNOL first-notice-of-loss, compliance logging.</p><div class="ind-meta mono">Applied Epic · AMS360</div></article>
+  </div>
+</section>
+
+<!-- ───────────────────────────── FEATURES ───────────────────────────── -->
+<section class="section features" id="features">
+  <div class="section-head reveal">
+    <span class="mono mono-dim">04 / platform</span>
+    <h2>Enterprise voice infrastructure. Main-street simple.</h2>
+  </div>
+
+  <div class="feat-grid">
+    <article class="feat feat-wide reveal">
+      <div class="feat-top">
+        <span class="mono mono-dim">01 · latency</span>
+        <h3>Sub-second response.</h3>
+      </div>
+      <div class="feat-gauge">
+        <div class="gauge"><span class="gauge-fill" style="--pct:14%"></span><span class="gauge-label">Halo</span><span class="gauge-val mono">380ms</span></div>
+        <div class="gauge"><span class="gauge-fill" style="--pct:44%" data-dim></span><span class="gauge-label">Industry avg.</span><span class="gauge-val mono">1,200ms</span></div>
+        <div class="gauge"><span class="gauge-fill" style="--pct:72%" data-dim></span><span class="gauge-label">Human receptionist</span><span class="gauge-val mono">1,900ms</span></div>
+      </div>
+      <p>Streaming STT, speculative reasoning, and a proprietary voice model get to the first word faster than most humans can say "hello."</p>
+    </article>
+
+    <article class="feat reveal">
+      <div class="feat-top"><span class="mono mono-dim">02 · coverage</span><h3>42 languages. One agent.</h3></div>
+      <div class="lang-cloud">
+        <span>English</span><span>Spanish</span><span>Mandarin</span><span>French</span><span>Hindi</span><span>Arabic</span><span>Portuguese</span><span>German</span><span>Vietnamese</span><span>Tagalog</span><span>Korean</span><span>+31</span>
+      </div>
+    </article>
+
+    <article class="feat reveal">
+      <div class="feat-top"><span class="mono mono-dim">03 · compliance</span><h3>HIPAA, SOC&nbsp;2, PCI.</h3></div>
+      <div class="badge-row">
+        <span class="badge">HIPAA</span><span class="badge">SOC 2 · II</span><span class="badge">PCI-DSS</span><span class="badge">GDPR</span><span class="badge">TCPA</span>
+      </div>
+      <p>Every call is encrypted, logged, and redactable. You own the data, always.</p>
+    </article>
+
+    <article class="feat reveal">
+      <div class="feat-top"><span class="mono mono-dim">04 · handoff</span><h3>Warm transfers, not cold drops.</h3></div>
+      <p>When a human is needed, Halo briefs them first — caller name, intent, sentiment, and a 1-line summary — so nobody repeats themselves.</p>
+      <div class="handoff">
+        <div class="hand-node">Halo</div>
+        <div class="hand-line"></div>
+        <div class="hand-brief mono">
+          <div>caller: <span>Derek L.</span></div>
+          <div>intent: <span>emergency leak</span></div>
+          <div>sent.: <span class="accent">frustrated</span></div>
+        </div>
+        <div class="hand-line"></div>
+        <div class="hand-node hand-node-accent">Tech on-call</div>
+      </div>
+    </article>
+
+    <article class="feat feat-wide reveal">
+      <div class="feat-top"><span class="mono mono-dim">05 · memory</span><h3>Remembers every caller. Forgets nothing.</h3></div>
+      <p>Halo knows that Mrs. Alvarez in Unit 4B already called about the thermostat on Tuesday — and she prefers morning appointments in Spanish.</p>
+      <div class="mem-row">
+        <div class="mem-card"><div class="mono mono-dim">CALLER · 4 calls</div><div class="mem-name">Alvarez, R.</div><div class="mem-fact">Prefers morning · Spanish · Unit 4B</div></div>
+        <div class="mem-card"><div class="mono mono-dim">CALLER · 1 call</div><div class="mem-name">Chen, W.</div><div class="mem-fact">New lead · 2BR listing · San Mateo</div></div>
+        <div class="mem-card"><div class="mono mono-dim">CALLER · 12 calls</div><div class="mem-name">Patel, N.</div><div class="mem-fact">VIP · tax-season client · net-30</div></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ───────────────────────────── INTEGRATIONS ───────────────────────────── -->
+<section class="section integrations" id="integrations">
+  <div class="section-head reveal">
+    <span class="mono mono-dim">05 / integrations</span>
+    <h2>Plugs into the tools you already trust.</h2>
+  </div>
+  <div class="integ-grid reveal">
+    <div class="integ">Google Calendar</div>
+    <div class="integ">HubSpot</div>
+    <div class="integ">Salesforce</div>
+    <div class="integ">ServiceTitan</div>
+    <div class="integ">Clio</div>
+    <div class="integ">QuickBooks</div>
+    <div class="integ">Twilio</div>
+    <div class="integ">Jobber</div>
+    <div class="integ">Housecall Pro</div>
+    <div class="integ">Open Dental</div>
+    <div class="integ">Zapier</div>
+    <div class="integ">Slack</div>
+    <div class="integ">Stripe</div>
+    <div class="integ">Zoho</div>
+    <div class="integ">Follow Up Boss</div>
+    <div class="integ integ-more">+ 80 more</div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── ROI CALCULATOR ───────────────────────────── -->
+<section class="section roi" id="roi">
+  <div class="section-head reveal">
+    <span class="mono mono-dim">06 / roi calculator</span>
+    <h2>See what missed calls are costing you.</h2>
+    <p class="lede">Drag the sliders. The math updates live.</p>
+  </div>
+
+  <div class="roi-wrap reveal">
+    <div class="roi-controls">
+      <label class="roi-field">
+        <span class="mono mono-dim">Calls per day</span>
+        <input type="range" id="roi-calls" min="10" max="300" value="80" />
+        <span class="roi-val" id="roi-calls-val">80</span>
+      </label>
+      <label class="roi-field">
+        <span class="mono mono-dim">% missed today</span>
+        <input type="range" id="roi-miss" min="5" max="60" value="28" />
+        <span class="roi-val"><span id="roi-miss-val">28</span>%</span>
+      </label>
+      <label class="roi-field">
+        <span class="mono mono-dim">Avg. job value</span>
+        <input type="range" id="roi-value" min="50" max="5000" step="50" value="450" />
+        <span class="roi-val">$<span id="roi-value-val">450</span></span>
+      </label>
+      <label class="roi-field">
+        <span class="mono mono-dim">Close rate</span>
+        <input type="range" id="roi-close" min="5" max="80" value="35" />
+        <span class="roi-val"><span id="roi-close-val">35</span>%</span>
+      </label>
+    </div>
+
+    <div class="roi-readout">
+      <div class="roi-big">
+        <span class="mono mono-dim">Recovered revenue / year with Halo</span>
+        <div class="roi-amt">$<span id="roi-year">0</span></div>
+      </div>
+      <div class="roi-small-row">
+        <div class="roi-small"><span class="mono mono-dim">per month</span><div>$<span id="roi-month">0</span></div></div>
+        <div class="roi-small"><span class="mono mono-dim">per week</span><div>$<span id="roi-week">0</span></div></div>
+        <div class="roi-small"><span class="mono mono-dim">calls saved/yr</span><div><span id="roi-saved">0</span></div></div>
+      </div>
+      <a href="#book" class="btn btn-primary btn-lg roi-cta">Book a demo <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── PRICING ───────────────────────────── -->
+<section class="section pricing" id="pricing">
+  <div class="section-head reveal">
+    <span class="mono mono-dim">07 / pricing</span>
+    <h2>Priced per call. Not per seat.</h2>
+    <p class="lede">You only pay when Halo connects. No minimums, no per-user fees.</p>
+  </div>
+
+  <div class="price-grid reveal">
+    <article class="price">
+      <div class="price-name">Main Street</div>
+      <div class="price-amt"><span class="price-curr">$</span>0.29<span class="price-per">/min</span></div>
+      <p class="price-blurb">For single-location businesses up to 1,500 calls/mo.</p>
+      <ul class="price-list">
+        <li>1 phone number</li>
+        <li>1 industry pack</li>
+        <li>Email + SMS summaries</li>
+        <li>5 CRM integrations</li>
+      </ul>
+      <a href="#book" class="btn btn-ghost btn-wide">Start free 14-day trial</a>
+    </article>
+    <article class="price price-featured">
+      <div class="price-badge mono">most popular</div>
+      <div class="price-name">Growth</div>
+      <div class="price-amt"><span class="price-curr">$</span>0.19<span class="price-per">/min</span></div>
+      <p class="price-blurb">For multi-location or high-volume SMB.</p>
+      <ul class="price-list">
+        <li>Up to 10 numbers &amp; brands</li>
+        <li>Custom voice &amp; persona</li>
+        <li>Warm transfers &amp; live routing</li>
+        <li>Unlimited integrations</li>
+        <li>Analytics dashboard</li>
+      </ul>
+      <a href="#book" class="btn btn-primary btn-wide">Book a demo</a>
+    </article>
+    <article class="price">
+      <div class="price-name">Enterprise</div>
+      <div class="price-amt price-amt-custom">Custom</div>
+      <p class="price-blurb">White-label, on-prem, or 50k+ calls/mo.</p>
+      <ul class="price-list">
+        <li>Dedicated voice model</li>
+        <li>SSO, SCIM, audit log</li>
+        <li>HIPAA BAA &amp; SOC 2 report</li>
+        <li>99.99% uptime SLA</li>
+        <li>Named solutions engineer</li>
+      </ul>
+      <a href="#book" class="btn btn-ghost btn-wide">Talk to sales</a>
+    </article>
+  </div>
+</section>
+
+<!-- ───────────────────────────── TESTIMONIALS ───────────────────────────── -->
+<section class="section testimonials" id="testimonials">
+  <div class="section-head reveal">
+    <span class="mono mono-dim">08 / the operators</span>
+    <h2>From the people picking up the phone.</h2>
+  </div>
+  <div class="quote-grid">
+    <figure class="quote reveal">
+      <blockquote>"We were bleeding 20 calls a week after hours. Halo booked $42,000 in new jobs its first month. My techs are still gobsmacked."</blockquote>
+      <figcaption><strong>Derek L.</strong> — Owner, Blueflame HVAC · Phoenix</figcaption>
+    </figure>
+    <figure class="quote reveal">
+      <blockquote>"Patients think it's our front-desk lead. It greets them in Spanish, checks their insurance, and books them in 90 seconds."</blockquote>
+      <figcaption><strong>Dr. Anya Patel</strong> — Apex Dental · Queens, NY</figcaption>
+    </figure>
+    <figure class="quote reveal">
+      <blockquote>"The compliance was the sell. HIPAA-ready, conflict checks, full audit log. I stopped losing sleep during intake season."</blockquote>
+      <figcaption><strong>Marcus Reyes</strong> — Partner, Meridian Law · Chicago</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ───────────────────────────── CTA ───────────────────────────── -->
+<section class="section cta-section" id="book">
+  <div class="cta-card reveal">
+    <div class="cta-grid" aria-hidden="true"></div>
+    <span class="mono mono-dim cta-eyebrow">▸ ready when you are</span>
+    <h2 class="cta-title">Your next customer is<br/>calling right now.</h2>
+    <p class="cta-sub">Book a 20-minute demo. We'll spin up an agent on your business before the call ends.</p>
+    <div class="cta-ctas">
+      <a href="#" class="btn btn-primary btn-lg">Book a demo <span class="arr">→</span></a>
+      <a href="#demo" class="btn btn-ghost btn-lg">Try the demo first</a>
+    </div>
+    <div class="cta-foot mono mono-dim">no credit card · live in 48 hours · cancel anytime</div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── FOOTER ───────────────────────────── -->
+<footer class="footer">
+  <div class="foot-top">
+    <div class="foot-brand">
+      <span class="brand-mark"><svg viewBox="0 0 28 28" width="26" height="26"><circle cx="14" cy="14" r="11" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="14" cy="14" r="5" fill="currentColor"/></svg></span>
+      <span class="brand-word">Halo<span class="brand-word-dim">Voice</span></span>
+      <p class="foot-tag">Never miss another call.</p>
+    </div>
+    <div class="foot-cols">
+      <div><h4>Platform</h4><a href="#features">Voice model</a><a href="#integrations">Integrations</a><a href="#features">Security</a><a href="#pricing">Pricing</a></div>
+      <div><h4>Industries</h4><a href="#industries">Dental</a><a href="#industries">HVAC</a><a href="#industries">Legal</a><a href="#industries">Real estate</a></div>
+      <div><h4>Company</h4><a href="#">About</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Contact</a></div>
+      <div><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a><a href="#">HIPAA BAA</a><a href="#">DPA</a></div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span class="mono mono-dim">© 2026 halo voice, inc. · san francisco · austin · london</span>
+    <span class="mono mono-dim">status: <span class="ok">● all systems operational</span></span>
+  </div>
+</footer>
+
+</main>
+
+<!-- ───────────────────────────── TWEAKS ───────────────────────────── -->
+<aside class="tweaks" id="tweaks" hidden>
+  <header class="tweaks-head">
+    <span class="mono">Tweaks</span>
+    <button class="tweaks-close" id="tweaks-close" aria-label="Close">×</button>
+  </header>
+  <div class="tweaks-body">
+    <div class="tweak">
+      <label class="mono mono-dim">Accent color</label>
+      <div class="swatches" id="sw-accent">
+        <button data-val="#4ade80" style="--c:#4ade80"></button>
+        <button data-val="#22d3ee" style="--c:#22d3ee"></button>
+        <button data-val="#a78bfa" style="--c:#a78bfa"></button>
+        <button data-val="#f472b6" style="--c:#f472b6"></button>
+        <button data-val="#fbbf24" style="--c:#fbbf24"></button>
+        <button data-val="#f87171" style="--c:#f87171"></button>
+        <button data-val="#ffffff" style="--c:#ffffff"></button>
+      </div>
+    </div>
+    <div class="tweak">
+      <label class="mono mono-dim">Font pairing</label>
+      <div class="seg" id="sw-font">
+        <button data-val="instrument">Instrument + Inter</button>
+        <button data-val="grotesk">Grotesk</button>
+        <button data-val="dmserif">DM Serif + Inter</button>
+      </div>
+    </div>
+    <div class="tweak">
+      <label class="mono mono-dim">Animation intensity</label>
+      <div class="seg" id="sw-anim">
+        <button data-val="calm">Calm</button>
+        <button data-val="normal">Normal</button>
+        <button data-val="max">Max</button>
+      </div>
+    </div>
+    <div class="tweak">
+      <label class="mono mono-dim">Hero headline</label>
+      <textarea id="sw-head" rows="2"></textarea>
+      <p class="tweak-hint mono mono-dim">wrap the accent word in *asterisks*</p>
+    </div>
+  </div>
+</aside>
+
+<script>
+  window.__HALO_CONFIG = {
+    // Your deployed Cloudflare Worker URL:
+    sessionUrl: "https://halo-session.YOUR-SUBDOMAIN.workers.dev/api/session",
+    // Cost guard — auto-hangup per demo call:
+    maxDemoSeconds: 180
+  };
+</script>
+<script src="realtime.js" defer></script>
+
+<script src="orb.js" defer></script>
+<script src="demo.js" defer></script>
+<script src="app.js"  defer></script>
+</body>
+</html>
